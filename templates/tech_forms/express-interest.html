@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Interest</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+
+    <style>
+        .zoom-input {transition: transform 0.2s ease, box-shadow 0.3s ease;}
+        .zoom-input:focus { transform: scale(1.05); box-shadow: 0 0 10px #f3d3bf; outline: none; }
+        .option-list { padding-left: 1.5rem; margin: 0; text-align: justify;}
+        .option-list li { margin-bottom: 0.5rem; line-height: 1.5; }
+        .label{text-align: justify;}
+        .stepper-vertical::before {top: 18px;}
+        .stepper-vertical::before { height: calc(0% - 1.5rem);}
+        #other-interest-container { display: none; }
+    </style>
+</head>
+<body>
+
+<!-- leftsidebar -->
+<div class="container-fluid leftsidebar">
+    <div class="row">
+        <!-- Left Sidebar Stepper -->
+        <div
+            class="col-12 col-md-4 col-lg-3 bg-technology text-white min-vh-100 d-flex flex-column justify-content-center position-fixed">
+            <!-- Logo Section -->
+            <div class="text-center mb-3 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+                <img src="{% static 'assets/images/form-logo.png' %}" alt="Form Logo" class="img-fluid logo-img">
+            </div>
+            <div class="px-3 px-md-4">
+                <h4 class="fw-bold mb-5 text-center aos-init" data-aos="fade-up" data-aos-delay="500">Express Interest Form</h4>
+                <!-- Stepper -->
+                <div class="stepper-vertical text-center justify-content-center ms-5" aria-label="Form progress">
+                    <div class="step active" data-step="0">
+                        <div class="dot">1</div>
+                        <label class="d-block">Acknowledgement</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="col-md-8 col-lg-9 offset-md-4 offset-lg-3 d-flex p-5">
+            <div class="card shadow p-4 w-100 h-100">
+                <form id="wizard" class="h-100 d-flex flex-column" novalidate method="post">
+                    {% csrf_token %}
+                    <!-- STEP 1 -->
+                    <section class="form-step active" data-step="0">
+                      <div class="row">         
+                        <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up"
+                          data-aos-delay="200">
+                          <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Acknowledgement</h4>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="applicantName" class="form-label fw-bold">
+                            Full Name <span style="color:#dc3545;">*</span>
+                          </label>
+                          <input id="applicantName" name="applicant_name" type="text" class="form-control zoom-input" required>
+                          <div class="invalid-feedback">Full name is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="email" class="form-label fw-bold">
+                            Email Address <span style="color:#dc3545;">*</span>
+                          </label>
+                          <input id="email" name="email" type="email" class="form-control zoom-input" required>
+                          <div class="invalid-feedback">Valid email is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="number" class="form-label fw-bold">
+                            Contact Number <span style="color:#dc3545;">*</span>
+                          </label>
+                          <input id="number" name="contact_number" type="tel" class="form-control zoom-input" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                          <div class="invalid-feedback">Contact Number is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="orgname" class="form-label fw-bold">
+                            Organization / Company Name (if applicable) <span style="color:#dc3545;">*</span>
+                          </label>
+                          <input id="orgname" name="organization_name" type="text" class="form-control zoom-input" required>
+                          <div class="invalid-feedback">Organization name is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="role" class="form-label fw-bold">
+                            Designation / Role <span style="color:#dc3545;">*</span>
+                          </label>
+                          <input id="role" name="role" type="text" class="form-control zoom-input" required>
+                          <div class="invalid-feedback">Designation is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="refid" class="form-label fw-bold">
+                            Patent Title <span style="color:#dc3545;">*</span>
+                          </label>
+                          <input id="refid" name="patent_title" type="text" class="form-control zoom-input" value="{{ patent_title }}" {% if patent_title %}readonly{% endif %} required>
+                          <div class="invalid-feedback">Patent title is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="interest" class="form-label fw-bold">
+                            Area of Interest <span style="color:#dc3545;">*</span>
+                          </label>
+                          <select id="interest" name="area_of_interest" class="form-select zoom-input" required>
+                            <option value="" selected disabled>Select Area of Interest</option>
+                            <option value="research">Research</option>
+                            <option value="investment">Investment</option>
+                            <option value="collaboration">Collaboration</option>
+                            <option value="licensing">Licensing</option>
+                            <option value="funding">Funding</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="commercialization">Commercialization</option>                  
+                            <option value="technology_transfer">Technology Transfer</option>
+                            <option value="other">Others</option>
+                          </select>
+                          <div class="invalid-feedback">Area of interest is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4" id="other-interest-container">
+                          <label for="other_interest" class="form-label fw-bold">
+                            Specify Other Interest
+                          </label>
+                          <input id="other_interest" name="other_interest" type="text" class="form-control zoom-input">
+                          <div class="invalid-feedback">Please specify the other area of interest.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="location" class="form-label fw-bold">
+                            Country / Location <span style="color:#dc3545;">*</span>
+                          </label>
+                          <select id="location" name="location" class="form-select zoom-input" required>
+                            <option value="" selected disabled>Select Country / Location</option>
+                            <option value="india">India</option>
+                            <option value="usa">USA</option>
+                            <option value="japan">Japan</option>                  
+                          </select>
+                          <div class="invalid-feedback">Location is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="reason" class="form-label fw-bold">Reason for Interest</label>
+                            <textarea id="reason" name="reason" class="form-control zoom-input" rows="3"
+                              placeholder="Type your text here"></textarea>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                          <label for="notes" class="form-label fw-bold">Any Specific Queries / Notes</label>
+                            <textarea id="notes" name="notes" class="form-control zoom-input" rows="3"
+                              placeholder="Type your text here"></textarea>
+                        </div>
+                        <div class="col-12 col-md-12 mb-4">
+                          <label class="form-label fw-bold d-flex align-items-center gap-2">
+                            <input type="checkbox" id="agree_to_contact" name="agree_to_contact" required style="width: fit-content;">
+                            <span class="w-full">I agree to be contacted regarding this patent and confirm that I will not disclose any information related to it without the knowledge or authorization of iTNT.</span>
+                          </label>
+                          <div class="invalid-feedback">You must agree to be contacted.</div>
+                        </div>
+                        
+                        <div class="actions mt-4 d-flex justify-content-between">
+                          <button type="submit" class="btn orange-btn btn-effect-13 py-2">Submit</button>
+                        </div>
+                      </div>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/all.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/aos.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 1100,
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        
+        $('#interest').on('change', function() {
+            if ($(this).val() === 'other') {
+                $('#other-interest-container').show();
+                $('#other_interest').prop('required', true);
+            } else {
+                $('#other-interest-container').hide();
+                $('#other_interest').prop('required', false).val('');
+            }
+        });
+
+        $('#wizard').on('submit', function(e) {
+            e.preventDefault();
+            $('.is-invalid').removeClass('is-invalid');
+
+            let formData = $(this).serializeArray();
+            let areaOfInterest = $('#interest').val();
+
+            
+            if (areaOfInterest === 'other' && $('#other_interest').val().trim() !== '') {
+                formData = formData.filter(item => item.name !== 'area_of_interest');
+                formData.push({ name: 'area_of_interest', value: $('#other_interest').val().trim() });
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "techforms:express_interest" %}',
+                data: $.param(formData),
+                success: function(response) {
+                    if (typeof response === 'string') {
+                        try {
+                            response = JSON.parse(response);
+                        } catch (e) {
+                            alert('Invalid server response: ' + e.message);
+                            console.error('Response:', response);
+                            return;
+                        }
+                    }
+                    if (response.status === 'success') {
+                        $('#successModal').modal('show');
+                        setTimeout(() => {
+                            window.location.href = '/technology/';
+                        }, 2000);
+                    } else if (response.status === 'error' && response.errors) {
+                        $.each(response.errors, function(key, value) {
+                            let input = $('#' + key); 
+                            if (!input.length) {
+                                input = $('[name="' + key + '"]');
+                            }
+                            input.addClass('is-invalid');
+                            input.next('.invalid-feedback').text(value[0] || 'An error occurred');
+                        });
+                    } else {
+                        alert('Unexpected response from server');
+                        console.error('Response:', response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let responseText = xhr.responseText || 'No response';
+                    try {
+                        let response = JSON.parse(responseText);
+                        if (response.errors) {
+                            $.each(response.errors, function(key, value) {
+                                let input = $('#' + key);
+                                if (!input.length) {
+                                    input = $('[name="' + key + '"]');
+                                }
+                                input.addClass('is-invalid');
+                                input.next('.invalid-feedback').text(value[0] || 'Server error');
+                            });
+                        } else {
+                            alert('Server error: ' + (response.message || error));
+                        }
+                    } catch (e) {
+                        alert('Server error: ' + error + '\nResponse: ' + responseText);
+                    }
+                    console.error('AJAX Error:', status, error, xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Form Submitted Successfully
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

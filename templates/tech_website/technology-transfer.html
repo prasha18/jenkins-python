@@ -1,0 +1,562 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | Technology Transfer</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <style>
+        .navbar-light .navbar-nav .nav-link { color: rgb(0, 0, 0); padding: 13px; font-size: 17px; font-weight: 600; }
+        nav .nav-link:hover { color: rgb(255, 116, 26) !important; }
+        header { width: 100%; background: transparent; position: fixed; top: 0; left: 0; z-index: 1000; box-shadow: 0 2px 4px #0006; }
+        .navbar-brand img { max-height: 80px; transition: all 0.3s ease-in-out; }
+        .navbar-nav .dropdown:hover .dropdown-menu { display: block; margin-top: 0; opacity: 1; visibility: visible; }
+        .dropdown:hover > .dropdown-menu { display: block; opacity: 1; visibility: visible; }
+        .dropdown-menu { display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
+        .dropdown-menu :hover { color: rgb(255, 116, 26) !important; }
+        .nav-item.dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item:active { color: #fff; text-decoration: none; background-color: transparent !important; }
+        @media (min-width: 1200px) and (max-width: 1400px) {
+            .navbar-light .navbar-nav .nav-link { padding: 13px; font-size: 16px; }
+        }
+        .techno-con {
+            border-radius: 12px;
+            position: relative;
+            transition: transform 0.3s ease-in-out;
+        }
+        .techno-con:hover {
+            box-shadow: 0 0px 7px 0px #faaf47b8 !important;
+            background-color: #ffc1070d !important;
+        }
+        .techno-con::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(90deg, orange, rgba(255, 68, 0, 0.74), gold, orange);
+            background-size: 300% 300%;
+            animation: borderflow 4s linear infinite;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        @keyframes borderflow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .techno-con:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(255, 165, 0, 0.4);
+        }
+        .technologytransfer-card {
+            display: flex;
+        }
+        .technologytransfer-card .card {
+            flex: 1;
+        }
+        .bg-gradient {
+            background: linear-gradient(90deg, #0c6098, #0c2c45);
+        }
+        .arrow-icon {
+            font-size: 3rem;
+            color: #0c6098;
+            display: inline-block;
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+        }
+#transfer-slider .owl-nav{display: block;}
+#transfer-slider .owl-nav button{background: none;}
+#transfer-slider{padding-bottom: 40px;}
+#transfer-slider .owl-next{float: right;}
+#transfer-slider .owl-prev{visibility: hidden;}
+    </style>
+</head>
+<body>
+    <section class="header-section">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-1">
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                        <img src="{% static 'assets/images/govt-logo.svg' %}" alt="Govt Logo" class="img-fluid mainlogo-2">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="iTNT Logo" class="img-fluid itnt-logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about' %}">About TNTTFC</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'programs' %}">Programs</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="portfolioDropdown">
+                                    Technology Portfolio
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="portfolioDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'technology' %}">Technology Available</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'technology_transfer' %}">Technology Transfer</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Services
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'ipmanagement' %}">IP Management</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-0" href="{% url 'contactus' %}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </section>
+
+    <section class="banner-section bg-technology" style="background-image: url('../../static/assets/images/technology-bg.jpg');background-position: bottom; background-size: cover;background-repeat: no-repeat;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 col-12 order-2 order-lg-1">
+                    <div class="ban-content d-flex align-items-center justify-content-center">
+                        <h1 data-aos="fade-right"><span data-aos="fade-up">Technology Transfer</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="titleh4 my-5" id="techid">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="fs-2 fw-bold mb-3 custom-underline text-start aos-init" data-aos="fade-right" data-aos-delay="400">
+                    <h4 class="position-relative d-inline-block mb-2">Technology Transferred</h4>
+                    <div class="underline"></div>
+                </div>
+                <p class="py-4">Technology transfer is a catalyst for translating research into meaningful societal and economic outcomes. Through the Tamil Nadu Technology Transfer Facilitation Centre (TNTTFC), we actively bridge the gap between academic innovation and industry application. By enabling successful technology transfers across institutions and sectors, we are fostering a culture of commercialization, collaboration, and value creation that drives Tamil Nadu’s innovation economy forward.</p>
+            </div>
+
+            <div class="col-md-12">
+                <div class="fs-2 fw-bold mb-3 custom-underline text-start aos-init" data-aos="fade-right" data-aos-delay="400">
+                    <h4 class="position-relative d-inline-block mb-2">Technology Transfers Facilitated by iTNT Hub</h4>
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="transfer-slider">
+    <div class="container">
+        <div class="owl-carousel" id="transfer-slider">
+            <div class="items">
+                <!-- Transfer 1 -->
+                <div class="tech-transfer card  shadow p-4 mb-5" data-aos="fade-up">
+                    <div class="row align-items-center text-center">
+                        <!-- Technology description -->
+                        <div class="p-3 bg-gradient text-start mb-2">
+                            <strong >Technology : </strong>IoT Based Handheld Pregnancy Monitoring Device
+                        </div>
+
+                        <!-- Left Card -->
+                        <div class="row align-items-stretch mb-2">
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Dr. M.A. Bhagyaveni</h5>
+                                    <p class="mb-1">Professor</p>
+                                    <p class="mb-1">C Department of Electronic & Communication Engineering</p>
+                                    <p class="mb-1">College of Engineering, Guindy</p>
+                                </div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="col-md-2 d-flex flex-column align-items-center p-0 justify-content-center">
+                                <div class="arrow-wrap">
+                                    <span class="arrow-icon">➜</span>
+                                </div>
+                                <p class="fw-bold small text-uppercase mt-2" style="color: #FF6500;font-size: 12px;">Technology
+                                    Transferred</p>
+                            </div>
+                            <!-- Right Card -->
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Mr. T. Arivuraja</h5>
+                                    <p class="mb-1">CEO</p>
+                                    <p class="mb-1">MAPe IT Solutions Pvt. Ltd. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-transfer card shadow p-4 mb-5" data-aos="fade-up">
+                    <div class="row align-items-center text-center">
+                        <!-- Technology description -->
+                        <div class="p-3 bg-gradient text-start mb-2">
+                            <strong >Technology : </strong>  IRIDIUM TERNARY ALLOY COMPOSITION
+                        </div>
+
+                        <!-- Left Card -->
+                        <div class="row align-items-stretch mb-2">
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Dr. Manjula</h5>
+                                    <p class="mb-1">Department of Physics</p>
+                                    <p class="mb-1">Sathyabama Institute of Science and Technology</p>
+                                
+                                </div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="col-md-2 d-flex flex-column align-items-center p-0 justify-content-center">
+                                <div class="arrow-wrap">
+                                    <span class="arrow-icon">➜</span>
+                                </div>
+                                <p class="fw-bold small text-uppercase mt-2" style="color: #FF6500;font-size: 12px;">Technology
+                                    Transferred</p>
+                            </div>
+                            <!-- Right Card -->
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">ASTROMEDA SPACE PRIVATE LIMITED</h5>
+                                    <p class="mb-1">Managing Director</p>
+                                    <p class="mb-1">Varre AyuStruct Ventures Pvt. Ltd. </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="tech-transfer card shadow p-4 mb-5" data-aos="fade-up">
+                    <div class="row align-items-center text-center">
+                        <!-- Technology description -->
+                        <div class="p-3 bg-gradient text-start mb-2">
+                            <strong >Technology : </strong> Recombinant Ectoine Technology Derived from Deep-sea Bacteria
+                        </div>
+                        <!-- Left Card -->
+                        <div class="row align-items-stretch mb-2">
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Prof. Balaji Ramakrishnan</h5>
+                                    <p class="mb-1">Director</p>
+                                    <p class="mb-1">National Institute of Ocean Technology (NIOT)</p>
+                                
+                                </div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="col-md-2 d-flex flex-column align-items-center p-0 justify-content-center">
+                                <div class="arrow-wrap">
+                                    <span class="arrow-icon">➜</span>
+                                </div>
+                                <p class="fw-bold small text-uppercase mt-2" style="color: #FF6500;font-size: 12px;">Technology
+                                    Transferred</p>
+                            </div>
+                            <!-- Right Card -->
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Mr. Varre Chaitanya Pradeep</h5>
+                                    <p class="mb-1">Managing Director</p>
+                                    <p class="mb-1">Varre AyuStruct Ventures Pvt. Ltd. </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Transfer 1 -->
+                <div class="tech-transfer card shadow p-4 mb-5" data-aos="fade-up">
+                    <div class="row align-items-center text-center">
+                        <!-- Technology description -->
+                        <div class="p-3 bg-gradient text-start mb-2">
+                            <strong >Technology : </strong>Medical Drone with Data Communication Enabled Flight Controller for Realtime Tracking
+                        </div>
+
+                        <!-- Left Card -->
+                        <div class="row align-items-stretch mb-2">
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Dr. M.A. Bhagyaveni</h5>
+                                    <p class="mb-1">Professor</p>
+                                    <p class="mb-1">C Department of Electronic & Communication Engineering</p>
+                                    <p class="mb-1">College of Engineering, Guindy</p>
+                                </div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="col-md-2 d-flex flex-column align-items-center p-0 justify-content-center">
+                                <div class="arrow-wrap">
+                                    <span class="arrow-icon">➜</span>
+                                </div>
+                                <p class="fw-bold small text-uppercase mt-2" style="color: #FF6500;font-size: 12px;">Technology
+                                    Transferred</p>
+                            </div>
+                            <!-- Right Card -->
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Mr. Shreeprakash Rathakrishnan</h5>
+                                    <p class="mb-1">CEO & Founder</p>
+                                    <p class="mb-1">ACME India Medical Drones Pvt. Ltd. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <!-- Transfer 1 -->
+                <div class="tech-transfer card shadow p-4 mb-5" data-aos="fade-up">
+                    <div class="row align-items-center text-center">
+                        <!-- Technology description -->
+                        <div class="p-3 bg-gradient text-start mb-2">
+                            <strong >Technology : </strong>Specially developed molecules and improved purification
+                            methods that help detect and potentially stop viruses like West Nile and other Flaviviruses more
+                            effectively.
+                        </div>
+    
+                        <!-- Left Card -->
+                        <div class="row align-items-stretch mb-2">
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Mr. Kripakaran Parthasarthy</h5>
+                                    <p class="mb-1">Scientist E</p>
+                                    <p class="mb-1">Centre for Drug Discovery and Development</p>
+                                    <p class="mb-1">Sathyabama Institute of Science and Technology</p>
+                                </div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="col-md-2 d-flex flex-column align-items-center p-0 justify-content-center">
+                                <div class="arrow-wrap">
+                                    <span class="arrow-icon">➜</span>
+                                </div>
+                                <p class="fw-bold small text-uppercase mt-2" style="color: #FF6500;font-size: 12px;">Technology
+                                    Transferred</p>
+                            </div>
+                            <!-- Right Card -->
+                            <div class="col-md-5 technologytransfer-card d-flex ">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3"> MR.Hari Balaji Venkatanarayanan</h5>
+                                    <p class="mb-1">VIVAGENX LABS (OPC) Private Limited</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Transfer 1 -->
+                <div class="tech-transfer card shadow p-4 mb-5" data-aos="fade-up">
+                    <div class="row align-items-center text-center">
+                        <!-- Technology description -->
+                        <div class="p-3 bg-gradient text-start mb-2">
+                            <strong >Technology : </strong>IoT Based Handheld Pregnancy Monitoring Device
+                        </div>
+
+                        <!-- Left Card -->
+                        <div class="row align-items-stretch mb-2">
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Dr. M.A. Bhagyaveni</h5>
+                                    <p class="mb-1">Professor</p>
+                                    <p class="mb-1">C Department of Electronic & Communication Engineering</p>
+                                    <p class="mb-1">College of Engineering, Guindy</p>
+                                </div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="col-md-2 d-flex flex-column align-items-center p-0 justify-content-center">
+                                <div class="arrow-wrap">
+                                    <span class="arrow-icon">➜</span>
+                                </div>
+                                <p class="fw-bold small text-uppercase mt-2" style="color: #FF6500;font-size: 12px;">Technology
+                                    Transferred</p>
+                            </div>
+                            <!-- Right Card -->
+                            <div class="col-md-5 technologytransfer-card d-flex">
+                                <div class="card techno-con shadow-sm p-4 w-100 bg-light">
+                                    <h5 class="fw-bold text-dark text-start mb-3">Mr. T. Arivuraja</h5>
+                                    <p class="mb-1">CEO</p>
+                                    <p class="mb-1">MAPe IT Solutions Pvt. Ltd. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="footer-logo">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="" class="img-fluid">
+                        <h5>TNTTFC </h5>
+                        <h5>Tamil Nadu Technology (iTNT) Hub, </h5>
+                    </div>
+                    <div class="footer-content">
+                        <p>3rd Floor, Sir C.V. Raman Science Block, Anna University Campus, Kotturpuram, Chennai, Tamil Nadu - 600025 <br> Phone: <a href="tel:7305980220">7305980220</a> <br> Daniel Prabhakaran G: <a href="mailto:daniel@tnthub.org">daniel@tnthub.org</a></p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://x.com/itntHub" class="twitter" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/people/iTNT-Hub/61562141153619/" class="facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/itnthub/posts/?feedView=all" class="linkedin" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@itnthub" class="youtube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-2"></div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'programs' %}">Programs</a></li>
+                            <li><a href="{% url 'technology' %}">Technologies</a></li>
+                            <!-- <li><a href="{% url 'services' %}">Services</a></li> -->
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="{% url 'ipmanagement' %}">IP Management</a></li>
+                            <li><a href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                            <li><a href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                            <li><a href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Help Center</h4>
+                        <ul>
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                            <!-- <li><a href="#">Knowledge</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Support</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <section class="footer-bottom">
+        <p class="copyright mb-0">© 2025. All rights reserved.</p>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/all.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    <script src="{% static 'assets/js/aos.js' %}"></script>
+
+    <script>
+        AOS.init({
+            duration: 1200,
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#searchBtn").click(function(){
+                var selectedInstitution = $('#institutionFilter').val();
+                var selectedSector = $('#sectorFilter').val();
+                
+                $('.technology-card').each(function(){
+                    var institution = $(this).data('institution');
+                    var sector = $(this).data('sector');
+
+                    var matchInstitution = !selectedInstitution || institution === selectedInstitution;
+                    var matchSector  = !selectedSector  || sector  === selectedSector;
+
+                    if(matchInstitution && matchSector){
+                        $(this).show();
+                    }else {
+                        $(this).hide();
+                    }
+                });
+            });
+            $("#resetBtn").click(function(){
+                $('#institutionFilter').val('');
+                $('#sectorFilter').val('');
+                $('.technology-card').show();
+            });
+        });
+    </script>
+    <script>
+        $('#transfer-slider').owlCarousel({
+            items: 1,
+            loop: false,
+            margin: 20,
+            dots: false,
+            nav: true,
+            navText: [
+                    '<p class="btn orange-btn btn-effect-13" style="padding:6px 25px">Back</p>',
+                    '<p class="btn orange-btn btn-effect-13" style="padding:6px 25px">Next</p>'
+            ],
+            autoplay: false,
+            responsiveClass: true,
+            responsive: {
+                0: { items: 1 },
+                600: { items: 1 },
+                1000: { items: 1 }
+            }
+        });
+
+        $('#transfer-slider').on('initialized.owl.carousel changed.owl.carousel', function(event) {
+            if (!event.namespace) return;
+
+            var carousel = event.relatedTarget;
+            var currentIndex = carousel.current(); 
+            var totalItems = carousel.items().length;
+
+            // Hide Back on first slide
+            if (currentIndex === 0) {
+                $('.owl-prev').css('visibility', 'hidden');
+            } else {
+                $('.owl-prev').css('visibility', 'visible');
+            }
+
+            // Hide Next on last slide
+            if (currentIndex === totalItems - 1) {
+                $('.owl-next').css('visibility', 'hidden');
+            } else {
+                $('.owl-next').css('visibility', 'visible');
+            }
+        });
+        $('.owl-nav button').click(function () {
+            $('html, body').animate({
+                scrollTop: $('#techid').offset().top
+            }, 500);
+        });
+    </script>
+</body>
+</html>

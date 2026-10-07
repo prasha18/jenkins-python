@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | TRL Assessment</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+
+    <style>
+        .zoom-input {transition: transform 0.2s ease, box-shadow 0.3s ease;}
+        .zoom-input:focus { transform: scale(1.05); box-shadow: 0 0 10px #f3d3bf; outline: none; }
+        .option-list { padding-left: 1.5rem; margin: 0; text-align: justify;}
+        .option-list li { margin-bottom: 0.5rem; line-height: 1.5; }
+        .label{text-align: justify;}
+        .stepper-vertical::before {top: 18px;}
+        .stepper-vertical::before { height: calc(0% - 1.5rem);}
+    </style>
+</head>
+<body>
+
+<!-- leftsidebar -->
+<div class="container-fluid leftsidebar">
+    <div class="row">
+        <!-- Left Sidebar Stepper -->
+        <div class="col-12 col-md-4 col-lg-3 bg-technology text-white min-vh-100 d-flex flex-column justify-content-center position-fixed">
+            <!-- Logo Section -->
+            <div class="text-center mb-3 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+                <img src="{% static 'assets/images/form-logo.png' %}" alt="Form Logo" class="img-fluid logo-img">
+            </div>
+            <div class="px-3 px-md-4">
+                <h4 class="fw-bold mb-5 text-center aos-init" data-aos="fade-up" data-aos-delay="500">Request for TRL Assessment</h4>
+                <!-- Stepper -->
+                <div class="stepper-vertical text-center justify-content-center ms-5" aria-label="Form progress">
+                    <div class="step active" data-step="0">
+                        <div class="dot">1</div>
+                        <label class="d-block">Personal Information</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="col-md-8 col-lg-9 offset-md-4 offset-lg-3 d-flex p-5">
+            <div class="card shadow p-4 w-100 h-100">
+                <form id="wizard" class="h-100 d-flex flex-column" novalidate method="post">
+                    {% csrf_token %}
+                    
+                    <!-- STEP 1 -->
+                    <section class="form-step active" data-step="0">
+                        <div class="row">         
+                            
+                            <!-- Title -->
+                            <div class="col-12 text-center mb-4" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="fw-bold mb-3 custom-underline" style="color:#ffa932;">
+                                    Personal Information
+                                </h4>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="inventor_name" class="form-label fw-bold">
+                                    Name of the Developers/Inventors <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="inventor_name" name="inventor_name" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Inventor name is required.</div>
+                            </div>
+
+                            <!-- Organisation -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="organisation" class="form-label fw-bold">
+                                    Name of the Organisation <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="organisation" name="organisation" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Organisation name is required.</div>
+                            </div>             
+
+                            <!-- Email -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="email" class="form-label fw-bold">
+                                    E-mail ID <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="email" name="email" type="email" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Valid email is required.</div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="contact_number" class="form-label fw-bold">
+                                    Phone No./Mobile No. <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="contact_number" name="contact_number" type="tel" class="form-control zoom-input" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Please enter exactly 10 digits" required>
+                                <div class="invalid-feedback">Valid 10-digit contact number is required.</div>
+                            </div>
+
+                            <!-- Title of Technology -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="technology_title" class="form-label fw-bold">
+                                    Title of the Technology <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="technology_title" name="technology_title" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Technology title is required.</div>
+                            </div>
+
+                            <!-- Field of Invention -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="field_of_invention" class="form-label fw-bold">
+                                    Field of Invention (Technology Sector) <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="field_of_invention" name="field_of_invention" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Field of invention is required.</div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-12 mb-4">
+                                <label for="technology_description" class="form-label fw-bold">
+                                    Brief Description of the Technology <span style="color:#dc3545;">*</span>
+                                </label>
+                                <textarea id="technology_description" name="technology_description" rows="3" class="form-control zoom-input" required></textarea>
+                                <div class="invalid-feedback">Technology description is required.</div>
+                            </div>
+
+                            <!-- Market Segment -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="market_segment" class="form-label fw-bold">
+                                    Targeted Market Segment of the Technology <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="market_segment" name="market_segment" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Market segment is required.</div>
+                            </div>
+
+                            <!-- Patent Details -->
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="patent_details" class="form-label fw-bold">
+                                    Patent Details (Application No) <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="patent_details" name="patent_details" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Patent details are required.</div>
+                            </div>
+
+                            <!-- Navigation Button -->
+                            <div class="col-12 mt-4 d-flex justify-content-between">
+                                <button type="submit" class="btn orange-btn btn-effect-13 py-2">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/all.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/aos.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 1100,
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#wizard').on('submit', function(e) {
+            e.preventDefault();
+            $('.is-invalid').removeClass('is-invalid');
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "techforms:trl_assessment_form" %}',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (typeof response === 'string') {
+                        try {
+                            response = JSON.parse(response);
+                        } catch (e) {
+                            alert('Invalid server response: ' + e.message);
+                            console.error('Response:', response);
+                            return;
+                        }
+                    }
+                    if (response.status === 'success') {
+                        $('#successModal').modal('show');
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 2000);
+                    } else if (response.status === 'error' && response.errors) {
+                        $.each(response.errors, function(key, value) {
+                            let input = $('#' + key); 
+                            if (!input.length) {
+                                // Fallback to form field names if needed
+                                input = $('[name="' + key + '"]');
+                            }
+                            input.addClass('is-invalid');
+                            input.next('.invalid-feedback').text(value[0] || 'An error occurred');
+                        });
+                    } else {
+                        alert('Unexpected response from server');
+                        console.error('Response:', response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let responseText = xhr.responseText || 'No response';
+                    try {
+                        let response = JSON.parse(responseText);
+                        if (response.errors) {
+                            $.each(response.errors, function(key, value) {
+                                let input = $('#' + key);
+                                if (!input.length) {
+                                    input = $('[name="' + key + '"]');
+                                }
+                                input.addClass('is-invalid');
+                                input.next('.invalid-feedback').text(value[0] || 'Server error');
+                            });
+                        } else {
+                            alert('Server error: ' + (response.message || error));
+                        }
+                    } catch (e) {
+                        alert('Server error: ' + error + '\nResponse: ' + responseText);
+                    }
+                    console.error('AJAX Error:', status, error, xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Form Submitted Successfully
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

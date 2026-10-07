@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | Contact Us</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <style>
+        .navbar-light .navbar-nav .nav-link { color: rgb(0, 0, 0); padding: 13px; font-size: 17px; font-weight: 600; }
+        nav .nav-link:hover { color: rgb(255 116 26) !important; }
+        header { width: 100%; background: transparent; position: fixed; top: 0; left: 0; z-index: 1000; box-shadow: 0 2px 4px #0006; }
+        .navbar-brand img { max-height: 80px; transition: all 0.3s ease-in-out; }
+        .navbar-nav .dropdown:hover .dropdown-menu { display: block; margin-top: 0; opacity: 1; visibility: visible; }
+        .dropdown:hover > .dropdown-menu { display: block; opacity: 1; visibility: visible; }
+        .dropdown-menu { display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
+        .dropdown-menu :hover { color: rgb(255 116 26) !important; }
+        .nav-item.dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item:active { color: #fff; text-decoration: none; background-color: transparent !important; }
+        @media (min-width: 1200px) and (max-width: 1400px) {
+            .navbar-light .navbar-nav .nav-link { padding: 13px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    
+    <section class="header-section ">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-1">
+                <div class="container">
+                    <!-- Logo -->
+                    <a class="navbar-brand d-flex align-items-center" href="/">
+                        <img src="{% static 'assets/images/govt-logo.svg' %}" alt="Govt Logo" class="img-fluid mainlogo-2">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="iTNT Logo" class="img-fluid itnt-logo">
+                    </a>
+
+                    <!-- Mobile Toggle Button -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Navbar Links -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'index' %}">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about' %}">
+                                    About TNTTFC
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'programs' %}">Programs</a>
+                            </li>
+                            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown">
+                                    Technology Portfolio
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'technology' %}">Technology Available</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'technology_transfer' %}">Technology Transfer</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Services
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'ipmanagement' %}">IP Management</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-0" href="{% url 'contactus' %}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </section>
+
+    <section class="banner-section contact-bgimg" style="background-image: url('../../static/assets/images/contact-bg.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 col-12 order-2 order-lg-1">
+                    <div class="ban-content d-flex align-items-center justify-content-center">
+                        <h1 data-aos="fade-right"><span data-aos="fade-up">Contact Us</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-details ptb-80">
+        <div class="container">
+            <div class="row align-items-start justify-content-between">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="contact-det">
+                        <div class="con-icon">
+                            <i class="fa-solid fa-location-dot" style="padding: 15px 18px;"></i>
+                        </div>
+                        <div class="con-det">
+                            <h5>Tamil Nadu Technology Hub (iTNT)</h5>
+                            <p class="mb-0">Sir C V Raman Block, 3rd Floor, Anna University Campus, Kotturpuram, Chennai 600025 India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="contact-det">
+                        <div class="con-icon">
+                            <i class="fa-solid fa-phone-volume" style="padding: 15px 15px;"></i>
+                        </div>
+                        <div class="con-det">
+                            <h5>Reach Us At</h5>
+                            <p>Daniel Prabhakaran. G</p>
+                            <p>Mail : <a href="mailto:daniel@tnthub.org">daniel@tnthub.org</a></p>
+                            <p>Phone : <a href="tel:+91 44-2988 7718">(+91) 44-2988 7718</a></p>
+                            <p>WhatsApp : <a href="tel:73059 80220">(+91) 73059 80220</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="contact-det mb-0">
+                        <div class="con-icon">
+                            <i class="fa-solid fa-share-nodes" style="padding: 15px 16px;"></i>
+                        </div>
+                        <div class="con-det">
+                            <h5>Social Media</h5>
+                            <div class="social-icons">
+                                <a href="https://x.com/itntHub" class="twitter" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                                <a href="https://www.facebook.com/people/iTNT-Hub/61562141153619/" class="facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="https://www.linkedin.com/company/itnthub/posts/?feedView=all" class="linkedin" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="https://www.youtube.com/@itnthub" class="youtube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section ptb-80">
+        <div class="container-fluid">
+            <div class="px-10">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <img src="{% static 'assets/images/contact-1.png' %}" alt="" class="img-fluid">
+                        <!-- <div class="d-flex">
+                            <div class="text-white text-center text-lg-start md-mt-20 mb-70 md-mb-30">
+                                <h2 class="text-white have-inq">Have inquiries? </h2>
+                                <span class="reach-text">Reach out via message</span>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="contact-pageform">
+                            <form action="{% url 'contactus' %}" method="POST" class="p-0">
+                                {% csrf_token %}
+                                <div class="messages"></div>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="row controls">
+                                    <div class="col-12  col-lg-12 col-md-12">
+                                        <div class="input-group mb-4">
+                                            <input type="text" placeholder="FULL NAME" name="name" required="" class="white-form">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-6">
+                                        <div class="input-group mb-4">
+                                            <input type="email" placeholder="EMAIL" name="email" required="" class="white-form">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-6">
+                                        <div class="input-group mb-4">
+                                            <input type="tel" placeholder="PHONE" name="phone" required="" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="white-form">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-12 col-md-12">
+                                        <div class="input-group mb-4">
+                                            <textarea placeholder="MESSAGE" name="message" required="" class="white-form" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-12 col-md-12">
+                                        <button class="btn conpage-btn" type="submit" name="submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.337361374258!2d80.23284137479433!3d13.014175613943971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52679f6aaaaaab%3A0x39c1ce8be59987d!2siTamilnadu%20Technology%20(iTNT)%20Hub%20-Chennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1753696603179!5m2!1sen!2sin" width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="footer-logo">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="" class="img-fluid">
+                        <h5>TNTTFC </h5>
+                        <h5>Tamil Nadu Technology (iTNT) Hub, </h5>
+                    </div>
+                    <div class="footer-content">
+                        <p>3rd Floor, Sir C.V. Raman Science Block, Anna University Campus, Kotturpuram, Chennai, Tamil Nadu - 600025 <br> Phone: <a href="tel:7305980220">7305980220</a> <br> Daniel Prabhakaran G: <a href="mailto:daniel@tnthub.org">daniel@tnthub.org</a></p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://x.com/itntHub" class="twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/people/iTNT-Hub/61562141153619/" class="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/itnthub/posts/?feedView=all" class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@itnthub" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-2"></div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'programs' %}">Programs</a></li>
+                            <li><a href="{% url 'technology' %}">Technologies</a></li>
+                            <!-- <li><a href="{% url 'services' %}">Services</a></li> -->
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Discover</h4>
+                        <ul>
+                            <li><a href="#">Partner Program</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="#">How it works</a></li>
+                            <li><a href="#">Case Studies</a></li>
+                            <li><a href="#">Team of Service</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="{% url 'ipmanagement' %}">IP Management</a></li>
+                            <li><a href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                            <li><a href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                            <li><a href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Help Center</h4>
+                        <ul>
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                            <!-- <li><a href="#">Knowledge</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Support</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <section class="footer-bottom">
+        <p class="copyright mb-0">© 2025. All rights reserved.</p>
+    </section>
+
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/all.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    <script src="{% static 'assets/js/aos.js' %}"></script>
+
+    <script>
+        AOS.init({
+            duration: 800,
+        });
+    </script>
+</body>
+</html>

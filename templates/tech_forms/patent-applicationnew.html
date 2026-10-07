@@ -1,0 +1,709 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | Patent Application Drafting</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+
+    <style>
+        .zoom-input {transition: transform 0.2s ease, box-shadow 0.3s ease;}
+        .zoom-input:focus { transform: scale(1.05); box-shadow: 0 0 10px #f3d3bf; outline: none; }
+        .option-list { padding-left: 1.5rem; margin: 0; text-align: justify; }
+        .option-list li { margin-bottom: 0.5rem; line-height: 1.5; }
+        .label { text-align: justify; }
+        .inventor-details { margin-bottom: 1.5rem; border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
+        .step.active .dot { background-color: #ffa932; }
+        .step.completed .dot { background-color: #ccc; }
+        .step.completed::before, .step::before { content: none !important; }
+        .invalid-feedback-custom { display: none; color: #dc3545; font-size: 0.875em; margin-top: 0.25rem; }
+    </style>
+</head>
+<body>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Form Submitted Successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- leftsidebar -->
+<div class="container-fluid leftsidebar">
+    <div class="row">
+        <!-- Left Sidebar Stepper -->
+        <div class="col-12 col-md-4 col-lg-3 bg-technology text-white min-vh-100 d-flex flex-column justify-content-center position-fixed" style="background-image: url('../../static/assets/images/technology-bg.jpg');background-position: bottom; background-size: cover;background-repeat: no-repeat;">
+            <!-- Logo Section -->
+            <div class="text-center mb-3 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+                <img src="{% static 'assets/images/form-logo.png' %}" alt="Form Logo" class="img-fluid logo-img">
+            </div>
+            <div class="px-3 px-md-4">
+                <h4 class="fw-bold mb-5 text-center aos-init" data-aos="fade-up" data-aos-delay="500">Patent Application Drafting Request Form</h4>
+                <!-- Stepper -->
+                <div class="stepper-vertical text-center justify-content-center ms-5" aria-label="Form progress">
+                    <div class="step active" data-step="0">
+                        <div class="dot">1</div>
+                        <label class="d-block">Personal Information</label>
+                    </div>
+                    <div class="step" data-step="1">
+                        <div class="dot">2</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Invention Disclosure</label>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="dot">3</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Submit</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="col-md-8 col-lg-9 offset-md-4 offset-lg-3 d-flex p-5">
+            <div class="card shadow p-4 w-100 h-100">
+                <form id="wizard" class="h-100 d-flex flex-column" method="POST" action="{% url 'techforms:patent_application_form' %}" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="step" id="step" value="0">
+                    <!-- STEP 1 -->
+                    <section class="form-step active" data-step="0">
+                        <div class="row">
+                            <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Personal Information</h4>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="applicant_name" class="form-label fw-bold">
+                                    Name of the Startup <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="applicant_name" name="startup_name" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Applicant name is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="dpiit_number" class="form-label fw-bold">
+                                    DPIIT No / UAM <span style="color:#dc3545;">*</span> Startup Registration No
+                                </label>
+                                <input id="dpiit_number" name="dpiit_number" type="text" class="form-control zoom-input" required>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="address" class="form-label fw-bold">
+                                    Address <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="address" name="address" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Address is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="country" class="form-label fw-bold">
+                                    Country <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="country" name="country" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select Country</option>
+                                    <option value="india">India</option>
+                                    <option value="usa">USA</option>
+                                    <option value="uk">UK</option>
+                                </select>
+                                <div class="invalid-feedback">Country is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="state" class="form-label fw-bold">
+                                    State <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="state" name="state" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select State</option>
+                                    {% for state in states %}
+                                        <option value="{{ state.id }}">{{ state.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">State is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="district" class="form-label fw-bold">
+                                    District <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="district" name="district" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select District</option>
+                                </select>
+                                <div class="invalid-feedback">District is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="email" class="form-label fw-bold">
+                                    E-mail ID <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="email" name="email" type="email" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Valid email is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="contact_number" class="form-label fw-bold">
+                                    Contact No <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="contact_number" name="contact_number" type="text" class="form-control zoom-input" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="company_classification" class="form-label fw-bold">
+                                    Company Classification <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="company_classification" name="company_classification" class="form-select zoom-input" required>
+                                    <option value="" disabled selected>Select company type</option>
+                                    <option value="Private">Private</option>
+                                    <option value="Partnership">Partnership</option>
+                                    <option value="LLP">LLP</option>
+                                </select>
+                                <div class="invalid-feedback">Company classification is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="date_of_registration" class="form-label fw-bold">
+                                    Date Of Registration <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="date_of_registration" name="date_of_registration" type="date" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Date of registration is required and cannot be in the future.</div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="uam_certificate" class="form-label fw-bold">Startup India Registration Certificate <span style="color:#dc3545;">*</span></label>
+                                    <input class="form-control" type="file" id="uam_certificate" name="uam_certificate" accept=".ppt,.pptx,.pdf" required>
+                                    <div class="invalid-feedback">UAM certificate is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="website" class="form-label fw-bold">
+                                    Website
+                                </label>
+                                <input id="website" name="website" type="url" class="form-control zoom-input" placeholder="https://example.com">
+                                <div class="invalid-feedback">Please enter a valid URL (e.g., https://example.com or https://example.com/path).</div>
+                            </div>
+                            <div class="col-12 col-md-12 mb-4">
+                                <label for="inventor_count" class="form-label fw-bold">
+                                    No. of Inventors <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="inventor_count" name="inventor_count" type="text" class="form-control zoom-input" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                <div class="invalid-feedback">Please enter a valid number of inventors (1-10).</div>
+                            </div>
+                            <div id="inventorDetailsContainer" class="col-12"></div>
+                            <!-- Navigation Button -->
+                            <div class="actions mt-4 d-flex justify-content-between">
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step">Continue</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- STEP 2 -->
+                    <section class="form-step" data-step="1" style="display:none;">
+                        <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Invention Disclosure <span style="color:#dc3545;">*</span></h4>
+                            <small class="fs-6" style="line-height:1.3;">(Please describe the invention including, but not limited to, the following information)</small>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="form-label fw-bold d-block mb-2">
+                                1. Invention category <span style="color:#dc3545;">*</span>
+                            </label>
+                            <div class="form-check d-flex align-items-center mb-2">
+                                <input class="form-check-input invention-check me-2" type="checkbox" name="invention_category" id="process" value="Process">
+                                <label class="form-check-label mb-0" for="process">Process</label>
+                            </div>
+                            <div class="form-check d-flex align-items-center">
+                                <input class="form-check-input invention-check me-2" type="checkbox" name="invention_category" id="product" value="Product">
+                                <label class="form-check-label mb-0" for="product">Product</label>
+                            </div>
+                            <div class="invalid-feedback-custom">Please select one option for Invention category.</div>
+                        </div>
+
+                        <!-- Hidden Process Section (Dropdown) -->
+                        <div id="processSection" class="col-12 mb-4" style="display: none;">
+                            <label class="form-label fw-bold d-block mb-2">
+                                Stage of Development (Process Patent) <span style="color:#dc3545;">*</span>
+                            </label>
+                            <select id="process_stage" name="stage_of_development" class="form-select zoom-input" required>
+                                <option value="" disabled selected>Choose</option>
+                                <option value="Lab Scale">Lab Scale</option>
+                                <option value="Pilot Scale">Pilot Scale</option>
+                                <option value="Semi Commercialized">Semi Commercialized</option>
+                                <option value="Commercialized">Commercialized</option>
+                                <option value="Commercially Proven">Commercially Proven</option>
+                            </select>
+                        </div>
+
+                        <!-- Hidden Product Section (Dropdown) -->
+                        <div id="productSection" class="col-12 mb-4" style="display: none;">
+                            <label class="form-label fw-bold d-block mb-2">
+                                Stage of Development (Product Patent) <span style="color:#dc3545;">*</span>
+                            </label>
+                            <select id="product_stage" name="stage_of_development" class="form-select zoom-input" required>
+                                <option value="" disabled selected>Choose</option>
+                                <option value="Static Model">Static Model</option>
+                                <option value="Prototype">Prototype</option>
+                                <option value="Working Model">Working Model</option>
+                                <option value="Commercialized">Commercialized</option>
+                                <option value="Commercially Proven">Commercially Proven</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <!-- Problem Addressed -->
+                            <label class="form-label fw-bold">2. Test Status<span style="color:#dc3545;">*</span></label>
+                            <select id="test_status" name="test_status" class="form-select zoom-input" required>
+                                <option value="" disabled selected>Choose</option>
+                                <option value="Self Tested">Self Tested</option>
+                                <option value="Not Tested">Not Tested</option>
+                                <option value="Tested by Government Agency">Tested by Government Agency</option>
+                                <option value="Tested by Private Agency">Tested by Private Agency</option>
+                                <option value="Tested by Industry">Tested by Industry</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <!-- Patent Specifications -->
+                            <label for="patent_status" class="form-label fw-bold">
+                                3. Patent Specifications:<span style="color:#dc3545;">*</span>
+                            </label>
+                            <select class="form-select" id="patent_status" name="patent_status" required>
+                                <option value="">Choose</option>
+                                <option value="provisional">Filed Provisional Patent</option>
+                                <option value="complete">Filed Complete Patent</option>
+                                <option value="notFiled">Not Filed</option>
+                            </select>
+                            <!-- Extra fields (hidden by default) -->
+                            <div id="extraFields" class="mt-3" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="patent_date" class="form-label">Patent Filed Date:</label>
+                                    <input type="date" class="form-control" id="patent_date" name="patent_date">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="patent_number" class="form-label">Patent Number:</label>
+                                    <input type="text" class="form-control" id="patent_number" name="patent_number" placeholder="Enter Patent Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label class="form-label fw-bold d-block">3.a) Enclosed<span style="color:#dc3545;">*</span></label>
+                            <div class="form-check d-flex align-items-center mb-2">
+                                <input class="form-check-input enclosed-check me-2" type="checkbox" name="enclosed" id="enclosed_yes" value="Yes">
+                                <label class="form-check-label mb-0" for="enclosed_yes">Yes</label>
+                            </div>
+                            <div class="form-check d-flex align-items-center">
+                                <input class="form-check-input enclosed-check me-2" type="checkbox" name="enclosed" id="enclosed_no" value="No">
+                                <label class="form-check-label mb-0" for="enclosed_no">No</label>
+                            </div>
+                            <div class="invalid-feedback-custom">Please select one option for Enclosed.</div>
+                            <!-- File upload (hidden by default) -->
+                            <div id="fileUploadField" class="mt-3" style="display: none;">
+                                <label for="enclosed_file" class="form-label">Upload PDF:</label>
+                                <input type="file" id="enclosed_file" name="enclosed_file" class="form-control" accept="application/pdf">
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="form-label fw-bold">4. Brief abstract of invention (In about 500 words)<span style="color:#dc3545;">*</span></label>
+                            <textarea id="abstract" name="abstract" class="form-control zoom-input mb-3" rows="3" placeholder="Type your text here" required></textarea>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <!-- Field of Invention -->
+                            <label for="state_of_art" class="form-label fw-bold">
+                                5. Existing state-of-art:(Give full details, including search reports)<span style="color:#dc3545;">*</span>
+                            </label>
+                            <textarea id="state_of_art" name="state_of_art" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label class="form-label fw-bold">6. Drawbacks in existing state-of-art & how the drawbacks have been overcome by your invention:<span style="color:#dc3545;">*</span></label>
+                            <textarea id="drawbacks_overcome" name="drawbacks_overcome" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label for="objectives" class="form-label fw-bold">
+                                7. Objectives of the invention<span style="color:#dc3545;">*</span>
+                            </label>
+                            <textarea id="objectives" name="objectives" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <div class="actions mt-4 d-flex justify-content-between">
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step">Back</button>
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step">Continue</button>
+                        </div>
+                    </section>
+
+                    <!-- STEP 3 -->
+                    <section class="form-step" data-step="2" style="display:none;">
+                        <div class="col-md-12 col-12 mb-3">
+                            <label class="form-label fw-bold">8.Novel features of the invention<span style="color:#dc3545;">*</span></label>
+                            <textarea id="novel_features" name="novel_features" class="form-control zoom-input mb-3" rows="3" placeholder="Type your text here" required></textarea>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <div class="col-md-12 col-12 mb-3">
+                            <label for="advantages" class="form-label fw-bold">9. Advantages over other known alternatives including imported alternatives<span style="color:#dc3545;">*</span></label>
+                            <textarea id="advantages" name="advantages" class="form-control zoom-input mb-3" rows="3" placeholder="(satisfying the Patentability Criteria – Industrial Applicability, Novelty & Inventive Step)" required></textarea>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <div class="col-12 col-md-12 mb-4">
+                            <label for="detailed_description_file" class="form-label fw-bold">
+                                10.Detailed description (The detailed description should be accompanied with diagrams; drawings neatly labelled and must be related to the description): Signature of all the Inventor(s): <span style="color:#dc3545;">*</span>
+                                It should be typed on one side of A4 size paper leaving left and right margins and should not exceed more than ten pages.
+                            </label>
+                            <input type="file" class="form-control zoom-input" id="detailed_description_file" name="detailed_description_file" accept=".pdf,.jpg,.png" required>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <div class="col-md-12 col-12 mb-3">
+                            <label for="reprints_file" class="form-label fw-bold">11.Reprints/cuttings of your invention, if published<span style="color:#dc3545;">*</span></label>
+                            <input type="file" class="form-control zoom-input" id="reprints_file" name="reprints_file" accept=".pdf,.jpg,.png" required>
+                            <div class="invalid-feedback">This field is required.</div>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <div class="actions mt-4 d-flex justify-content-between">
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step">Back</button>
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 submit-form">Submit</button>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/all.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/aos.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 1100,
+    });
+</script>
+
+<!-- Invention category -->
+<script>
+    const inventionCheckboxes = document.querySelectorAll('.invention-check');
+    const processSection = document.getElementById('processSection');
+    const productSection = document.getElementById('productSection');
+
+    inventionCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                inventionCheckboxes.forEach((cb) => {
+                    if (cb !== this) cb.checked = false;
+                });
+                // Show respective dropdown
+                if (this.value === 'Process') {
+                    processSection.style.display = 'block';
+                    productSection.style.display = 'none';
+                    document.getElementById('process_stage').setAttribute('required', 'required');
+                    document.getElementById('product_stage').removeAttribute('required');
+                } else if (this.value === 'Product') {
+                    productSection.style.display = 'block';
+                    processSection.style.display = 'none';
+                    document.getElementById('product_stage').setAttribute('required', 'required');
+                    document.getElementById('process_stage').removeAttribute('required');
+                }
+            } else {
+                processSection.style.display = 'none';
+                productSection.style.display = 'none';
+                document.getElementById('process_stage').removeAttribute('required');
+                document.getElementById('product_stage').removeAttribute('required');
+            }
+        });
+    });
+</script>
+<!-- Invention category -->
+
+<!-- Patent Specifications -->
+<script>
+    document.getElementById('patent_status').addEventListener('change', function() {
+        const extraFields = document.getElementById('extraFields');
+        if (this.value === 'provisional' || this.value === 'complete') {
+            extraFields.style.display = 'block';
+            document.getElementById('patent_date').setAttribute('required', 'required');
+            document.getElementById('patent_number').setAttribute('required', 'required');
+        } else {
+            extraFields.style.display = 'none';
+            document.getElementById('patent_date').removeAttribute('required');
+            document.getElementById('patent_number').removeAttribute('required');
+        }
+    });
+</script>
+<!-- Patent Specifications -->
+
+<!-- Enclosed -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const enclosedCheckboxes = document.querySelectorAll('.enclosed-check');
+        const fileUploadField = document.getElementById('fileUploadField');
+        const pdfFile = document.getElementById('enclosed_file');
+
+        enclosedCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    enclosedCheckboxes.forEach((cb) => {
+                        if (cb !== this) cb.checked = false;
+                    });
+                    if (this.value === 'Yes') {
+                        fileUploadField.style.display = 'block';
+                        pdfFile.setAttribute('required', 'required');
+                    } else {
+                        fileUploadField.style.display = 'none';
+                        pdfFile.removeAttribute('required');
+                        pdfFile.value = '';
+                    }
+                }
+            });
+        });
+    });
+</script>
+<!-- Enclosed -->
+
+<script>
+    const steps = document.querySelectorAll(".form-step");
+    const stepperDots = document.querySelectorAll(".step");
+    let currentStep = 0;
+
+    function showStep(step) {
+        steps.forEach((s, i) => {
+            s.style.display = i === step ? "block" : "none";
+        });
+        stepperDots.forEach((dot, i) => {
+            dot.classList.remove("active", "completed");
+            if (i === step) dot.classList.add("active");
+            else if (i < step) dot.classList.add("completed");
+        });
+    }
+
+    // Dynamic Inventor Details
+    document.getElementById('inventor_count').addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, '');
+        if (value > 10) value = 10;
+        this.value = value;
+        const count = parseInt(value) || 0;
+        const container = document.getElementById('inventorDetailsContainer');
+        container.innerHTML = '';
+
+        for (let i = 1; i <= count; i++) {
+            const inventorDiv = document.createElement('div');
+            inventorDiv.className = 'inventor-details';
+            inventorDiv.innerHTML = `
+                <h5>Inventor ${i} Details</h5>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="inventorName${i}" class="form-label fw-bold">Name <span style="color:#dc3545;">*</span></label>
+                        <input type="text" class="form-control zoom-input" id="inventorName${i}" name="inventorName${i}" required>
+                        <div class="invalid-feedback">Name is required.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="inventorDesignation${i}" class="form-label fw-bold">Designation <span style="color:#dc3545;">*</span></label>
+                        <input type="text" class="form-control zoom-input" id="inventorDesignation${i}" name="inventorDesignation${i}" required>
+                        <div class="invalid-feedback">Designation is required.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="inventorDOB${i}" class="form-label fw-bold">DOB <span style="color:#dc3545;">*</span></label>
+                        <input type="date" class="form-control zoom-input" id="inventorDOB${i}" name="inventorDOB${i}" max="${today}" required>
+                        <div class="invalid-feedback">Date of Birth is required and cannot be in the future.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="inventorAadhaar${i}" class="form-label fw-bold">Aadhaar Upload (PDF) <span style="color:#dc3545;">*</span></label>
+                        <input type="file" class="form-control zoom-input" id="inventorAadhaar${i}" name="inventorAadhaar${i}" accept=".pdf" required>
+                        <div class="invalid-feedback">Aadhaar PDF is required.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="inventorMobile${i}" class="form-label fw-bold">Mobile Number <span style="color:#dc3545;">*</span></label>
+                        <input type="text" class="form-control zoom-input" id="inventorMobile${i}" name="inventorMobile${i}" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                        <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="inventorEmail${i}" class="form-label fw-bold">E-mail ID <span style="color:#dc3545;">*</span></label>
+                        <input type="email" class="form-control zoom-input" id="inventorEmail${i}" name="inventorEmail${i}" required>
+                        <div class="invalid-feedback">Valid email is required.</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(inventorDiv);
+        }
+    });
+
+    // Form Validation and Submission
+    document.getElementById('wizard').addEventListener('submit', function(e) {
+        e.preventDefault();
+    });
+
+    document.querySelectorAll('.next-step').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const currentStepElement = steps[currentStep];
+            const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            // Validate standard inputs
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    console.log(`Invalid field: ${input.id} - ${input.validationMessage}`);
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            // Custom validation for Step 2 (Invention category and Enclosed)
+            if (currentStep === 1) {
+                const inventionChecked = document.querySelector('.invention-check:checked');
+                const enclosedChecked = document.querySelector('.enclosed-check:checked');
+                const inventionFeedback = currentStepElement.querySelector('.invalid-feedback-custom');
+                const enclosedFeedback = currentStepElement.querySelectorAll('.invalid-feedback-custom')[1];
+
+                if (inventionFeedback) {
+                    if (!inventionChecked) {
+                        isValid = false;
+                        inventionFeedback.style.display = 'block';
+                    } else {
+                        inventionFeedback.style.display = 'none';
+                    }
+                }
+                if (enclosedFeedback) {
+                    if (!enclosedChecked) {
+                        isValid = false;
+                        enclosedFeedback.style.display = 'block';
+                    } else {
+                        enclosedFeedback.style.display = 'none';
+                    }
+                }
+            }
+
+            if (isValid) {
+                const formData = new FormData(document.getElementById('wizard'));
+                formData.append('step', currentStep);
+                // Debug FormData
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
+                $.ajax({
+                    url: '{% url "techforms:patent_application_form" %}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        console.log('AJAX Response:', response);
+                        if (response.status === 'success' && response.next_step !== undefined) {
+                            currentStep = response.next_step;
+                            showStep(currentStep);
+                        } else {
+                            alert('Error: ' + (response.errors ? JSON.parse(response.errors) : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                        alert('An error occurred. Check console for details.');
+                    }
+                });
+            } else {
+                console.log('Form validation failed for step ' + (currentStep + 1)); // Adjusted to user-friendly step number
+            }
+        });
+    });
+
+    document.querySelectorAll('.prev-step').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    document.querySelectorAll('.submit-form').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const currentStepElement = steps[currentStep];
+            const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    console.log(`Invalid field: ${input.id} - ${input.validationMessage}`);
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                const formData = new FormData(document.getElementById('wizard'));
+                formData.append('step', currentStep);
+                $.ajax({
+                    url: '{% url "techforms:patent_application_form" %}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#successModal').modal('show');
+                            setTimeout(() => {
+                                window.location.href = '/';
+                            }, 2000);
+                        } else {
+                            alert('Error: ' + (response.errors ? JSON.parse(response.errors) : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            } else {
+                console.log('Form validation failed for step ' + (currentStep + 1)); // Adjusted to user-friendly step number
+            }
+        });
+    });
+
+    // District Fetching
+    document.getElementById('state').addEventListener('change', function() {
+        var stateId = this.value;
+        if (stateId) {
+            fetch('/get_districts/' + stateId + '/')
+                .then(response => response.json())
+                .then(data => {
+                    var districtSelect = document.getElementById('district');
+                    districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+                    data.forEach(function(district) {
+                        var option = document.createElement('option');
+                        option.value = district.id;
+                        option.text = district.name;
+                        districtSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            document.getElementById('district').innerHTML = '<option value="" selected disabled>Select District</option>';
+        }
+    });
+
+    // Set max date dynamically to today's date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date_of_registration").setAttribute("max", today);
+
+    showStep(currentStep);
+    document.getElementById('inventor_count').dispatchEvent(new Event('input'));
+</script>
+
+</body>
+</html>

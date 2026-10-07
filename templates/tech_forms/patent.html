@@ -1,0 +1,352 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | Patent </title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+
+    <style>
+        .zoom-input {transition: transform 0.2s ease, box-shadow 0.3s ease;}
+        .zoom-input:focus { transform: scale(1.05); box-shadow: 0 0 10px #f3d3bf; outline: none; }
+        .option-list { padding-left: 1.5rem; margin: 0; text-align: justify; }
+        .option-list li { margin-bottom: 0.5rem; line-height: 1.5; }
+        .label { text-align: justify; }
+        .inventor-details { margin-bottom: 1.5rem; border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
+        .step.active .dot { background-color: #ffa932; }
+        .step.completed .dot { background-color: #ccc; }
+        .step.completed::before, .step::before { content: none !important; }
+        .is-invalid { border-color: #dc3545 !important; }
+    </style>
+</head>
+<body>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Form Submitted Successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- leftsidebar -->
+<div class="container-fluid leftsidebar">
+    <div class="row">
+        <!-- Left Sidebar Stepper -->
+        <div class="col-12 col-md-4 col-lg-3 bg-technology text-white min-vh-100 d-flex flex-column justify-content-center position-fixed" style="background-image: url('../../static/assets/images/technology-bg.jpg');background-position: bottom; background-size: cover;background-repeat: no-repeat;">
+            <div class="text-center mb-3 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'assets/images/form-logo.png' %}" alt="Form Logo" class="img-fluid logo-img">
+                </a>
+            </div>
+            <div class="px-3 px-md-4">
+                <h4 class="fw-bold mb-5 text-center aos-init" data-aos="fade-up" data-aos-delay="500">Patent Submission Form</h4>
+                <div class="stepper-vertical text-center justify-content-center ms-5" aria-label="Form progress">
+                    <div class="step active" data-step="0">
+                        <div class="dot">1</div>
+                        <label class="d-block">Personal Information</label>
+                    </div>
+                    <div class="step" data-step="1">
+                        <div class="dot">2</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Patent Details</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="col-md-8 col-lg-9 offset-md-4 offset-lg-3 d-flex p-5">
+            <div class="card shadow p-4 w-100 h-100">
+                <form id="wizard" class="h-100 d-flex flex-column" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- STEP 1 -->
+                    <section class="form-step active" data-step="0">
+                        <div class="row">
+                            <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Personal Information</h4>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="applicant_name" class="form-label fw-bold">
+                                    Name <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="applicant_name" name="applicant_name" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Name is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="email" class="form-label fw-bold">
+                                    E-mail ID <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="email" name="email" type="email" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Valid email is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="contact_number" class="form-label fw-bold">
+                                    Contact No <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="contact_number" name="contact_number" type="tel" class="form-control zoom-input" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" required>
+                                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="address" class="form-label fw-bold">
+                                    Address <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="address" name="address" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Address is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="country" class="form-label fw-bold">
+                                    Country <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="country" name="country" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select Country</option>
+                                    <option value="india">India</option>
+                                    <option value="usa">USA</option>
+                                    <option value="uk">UK</option>
+                                </select>
+                                <div class="invalid-feedback">Country is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="state" class="form-label fw-bold">
+                                    State <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="state" name="state" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select State</option>
+                                    {% for state in states %}
+                                        <option value="{{ state.id }}">{{ state.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">State is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="district" class="form-label fw-bold">
+                                    District <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="district" name="district" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select District</option>
+                                </select>
+                                <div class="invalid-feedback">District is required.</div>
+                            </div>
+
+                            <!-- Navigation Button -->
+                            <div class="actions mt-4 d-flex justify-content-between">
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step">Continue</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- STEP 2 -->
+                    <section class="form-step" data-step="1" style="display:none;">
+                        <div class="row">
+                            <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Patent Details</h4>
+                            </div>
+                            <div class="col-md-12 col-12">
+                                <div class="mb-4">
+                                    <label for="title" class="form-label fw-bold">Title <span style="color:#dc3545;">*</span></label>
+                                    <input class="form-control" type="text" id="title" name="title" required>
+                                    <div class="invalid-feedback">Title is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="description" class="form-label fw-bold">
+                                    Description<span style="color:#dc3545;">*</span>
+                                </label>
+                                <textarea id="description" name="description" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-md-6 col-12 mb-4">
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Template</label>
+                                    <div>
+                                        <a href="../../static/assets/images/tech-template.pdf" style="padding: 11px 25px; border-radius: 0px;" download class="btn orange-btn">Please use this format</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-sm-block"></div>
+                            <div class="col-md-12 col-12 mb-4">
+                                <div class="mb-4">
+                                    <label for="pdf_write" class="form-label fw-bold">Upload your patent on a One page.</label>
+                                    <input class="form-control" type="file" id="pdf_write" name="pdf_write" accept=".ppt,.pptx,.pdf">
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12 mb-4">
+                                <div class="mb-4">
+                                    <label for="word_write" class="form-label fw-bold">One page write up in Word Format</label>
+                                    <input class="form-control" type="file" id="word_write" name="word_write" accept=".doc,.docx,.docm">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 mb-4">
+                                <label for="sector" class="form-label fw-bold">
+                                    Sector <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="sector" name="sector" class="form-select zoom-input" required>
+                                    <option value="" selected>Select Sector</option>
+                                    {% for sector in sectors %}
+                                        <option value="{{ sector.id }}">{{ sector.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">Sector is required.</div>
+                            </div>
+                            <!-- Navigation Buttons -->
+                            <div class="actions mt-4 d-flex justify-content-between">
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step">Back</button>
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 submit-form">Submit</button>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/all.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/aos.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 1100,
+    });
+
+    $(document).ready(function() {
+        // District fetching
+        $('#state').on('change', function() {
+            var state_id = $(this).val();
+            if (state_id) {
+                $.ajax({
+                    url: '/get_districts/' + state_id + '/',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var districtSelect = $('#district');
+                        districtSelect.html('<option value="" selected disabled>Select District</option>');
+                        data.forEach(function(district) {
+                            districtSelect.append('<option value="' + district.id + '">' + district.name + '</option>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching districts:', error);
+                    }
+                });
+            } else {
+                $('#district').html('<option value="" selected disabled>Select District</option>');
+            }
+        });
+
+        // Step navigation and validation
+        $('.next-step').click(function() {
+            var currentStep = $('.form-step.active');
+            if (validateStep(currentStep)) {
+                currentStep.removeClass('active').hide();
+                var nextStep = currentStep.next('.form-step');
+                nextStep.addClass('active').show();
+                updateStepper(nextStep.data('step'));
+            }
+        });
+
+        $('.prev-step').click(function() {
+            var currentStep = $('.form-step.active');
+            currentStep.removeClass('active').hide();
+            var prevStep = currentStep.prev('.form-step');
+            prevStep.addClass('active').show();
+            updateStepper(prevStep.data('step'));
+        });
+
+        function updateStepper(step) {
+            $('.step').removeClass('active completed');
+            $('.step[data-step="' + step + '"]').addClass('active');
+            $('.step').each(function() {
+                if ($(this).data('step') < step) {
+                    $(this).addClass('completed');
+                }
+            });
+        }
+
+        function validateStep(step) {
+            var valid = true;
+            step.find('[required]').each(function() {
+                if (!this.checkValidity()) {
+                    $(this).addClass('is-invalid');
+                    valid = false;
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+            return valid;
+        }
+
+        // Form submission
+        $('.submit-form').click(function() {
+            var currentStep = $('.form-step.active');
+            if (validateStep(currentStep)) {
+                var form = $('#wizard');
+                var formData = new FormData(form[0]);
+                // Disable button and show loading state
+                var submitButton = $(this);
+                submitButton.prop('disabled', true).text('Submitting...');
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "techforms:patent" %}',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#successModal').modal('show');
+                            setTimeout(() => {
+                                window.location.href = '/';
+                            }, 2000);
+                        } else if (response.status === 'error' && response.errors) {
+                            $.each(response.errors, function(key, value) {
+                                let input = $('#' + key.replace(/_/g, '-'));
+                                if (!input.length) {
+                                    input = $('[name="' + key + '"]');
+                                }
+                                input.addClass('is-invalid');
+                                input.next('.invalid-feedback').text(value[0] || 'An error occurred');
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error, xhr.responseText);
+                        // Show error to user
+                        alert('An error occurred during submission. Please try again.');
+                    },
+                    complete: function() {
+                        // Re-enable button
+                        submitButton.prop('disabled', false).text('Submit');
+                    }
+                });
+            }
+        });
+
+        // Initialize district fetch if state is pre-selected
+        var stateSelect = $('#state');
+        if (stateSelect.val()) {
+            stateSelect.trigger('change');
+        }
+    });
+</script>
+
+</body>
+</html>

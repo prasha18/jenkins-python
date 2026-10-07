@@ -1,0 +1,674 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | EOI - Trade</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+
+    <style>
+        .zoom-input { transition: transform 0.2s ease, box-shadow 0.3s ease; }
+        .zoom-input:focus { transform: scale(1.05); box-shadow: 0 0 10px #f3d3bf; outline: none; }
+        .inventor-details { margin-bottom: 1.5rem; border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
+        .d-none { display: none !important; }
+        .active { display: block !important; }
+        .completed .dot { background-color: #ffa932; }
+        .active .dot { background-color: #fff; border: 2px solid #ffa932; }
+        .step.completed .dot { background-color: #ccc; }
+        .step.completed::before, .step::before { content: none !important; }
+        @media (min-width:1073px) and (max-width:1671px) {
+            .marginh-lg { margin-bottom: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Form Submitted Successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- leftsidebar -->
+<div class="container-fluid leftsidebar">
+    <div class="row">
+        <!-- Left Sidebar Stepper -->
+        <div class="col-12 col-md-4 col-lg-3 bg-technology text-white min-vh-100 d-flex flex-column justify-content-center position-fixed" style="background-image: url('../../static/assets/images/technology-bg.jpg');background-position: bottom; background-size: cover;background-repeat: no-repeat;">
+            <div class="text-center mb-3 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+                <img src="{% static 'assets/images/form-logo.png' %}" alt="Form Logo" class="img-fluid logo-img">
+            </div>
+            <div class="px-3 px-md-4">
+                <h4 class="fw-bold mb-5 text-center aos-init" data-aos="fade-up" data-aos-delay="500">EOI - Trade / Word/ Logo Marks</h4>
+                <div class="stepper-vertical text-center justify-content-center ms-5" aria-label="Form progress">
+                    <div class="step {% if step == 0 %}active{% elif step > 0 %}completed{% endif %}" data-step="0">
+                        <div class="dot">1</div>
+                        <label class="d-block">Personal Information</label>
+                    </div>
+                    <div class="step {% if step == 1 %}active{% elif step > 1 %}completed{% endif %}" data-step="1">
+                        <div class="dot">2</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Director Details</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="col-md-8 col-lg-9 offset-md-4 offset-lg-3 d-flex p-5">
+            <div class="card shadow p-4 w-100 h-100">
+                <form id="wizard" class="h-100 d-flex flex-column" method="POST" action="{% url 'techforms:trademark_application_form' %}" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" name="step" id="step" value="{{ step|default:0 }}">
+                    <!-- STEP 1 -->
+                    <section class="form-step {% if step == 0 %}active{% else %}d-none{% endif %}" data-step="0">
+                        <div class="row">
+                            <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Personal Information</h4>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="applicant_name" class="form-label fw-bold">
+                                    Name of the Startup <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="startup_name" name="startup_name" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Startup name is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="dpiit_number" class="form-label fw-bold">
+                                    DPIIT No / UAM <span style="color:#dc3545;">*</span> Startup Registration No
+                                </label>
+                                <input id="dpiit_number" name="dpiit_number" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">DPIIT number is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="address" class="form-label fw-bold">
+                                    Address <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="address" name="address" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Address is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="country" class="form-label fw-bold">
+                                    Country <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="country" name="country" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select Country</option>
+                                    <option value="india">India</option>
+                                    <option value="usa">USA</option>
+                                    <option value="uk">UK</option>
+                                </select>
+                                <div class="invalid-feedback">Country is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="state" class="form-label fw-bold">
+                                    State <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="state" name="state" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select State</option>
+                                    {% for state in states %}
+                                        <option value="{{ state.id }}">{{ state.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">State is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="district" class="form-label fw-bold">
+                                    District <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="district" name="district" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select District</option>
+                                </select>
+                                <div class="invalid-feedback">District is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="email" class="form-label fw-bold">
+                                    E-mail ID <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="email" name="email" type="email" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Valid email is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="contact_number" class="form-label fw-bold">
+                                    Contact No <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="contact_number" name="contact_number" type="text" class="form-control zoom-input" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="company_classification" class="form-label fw-bold">
+                                    Company Classification <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="company_classification" name="company_classification" class="form-select zoom-input" required>
+                                    <option value="" disabled selected>Select company type</option>
+                                    <option value="Private">Private</option>
+                                    <option value="Partnership">Partnership</option>
+                                    <option value="LLP">LLP</option>
+                                </select>
+                                <div class="invalid-feedback">Company classification is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="date_of_registration" class="form-label fw-bold">
+                                    Date Of Registration <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="date_of_registration" name="date_of_registration" type="date" class="form-control zoom-input" max="{% now 'Y-m-d' %}" required>
+                                <div class="invalid-feedback">Date of registration is required and cannot be in the future.</div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="uam_certificate" class="form-label fw-bold">Startup India Registration Certificate <span style="color:#dc3545;">*</span></label>
+                                    <input class="form-control zoom-input" type="file" id="uam_certificate" name="uam_certificate" accept=".ppt,.pptx,.pdf" required>
+                                    <div class="invalid-feedback">Startup India Registration Certificate is required. Please upload a valid file (.ppt, .pptx, or .pdf).</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="website" class="form-label fw-bold">
+                                    Website
+                                </label>
+                                <input id="website" name="website" type="url" class="form-control zoom-input" placeholder="https://example.com">
+                                <div class="invalid-feedback">Please enter a valid URL (e.g., https://example.com or https://example.com/path).</div>
+                            </div>
+                            <div class="col-12 col-md-12 mb-4">
+                                <label for="inventor_count" class="form-label fw-bold">
+                                    No. of Inventors <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="inventor_count" name="inventor_count" type="text" class="form-control zoom-input" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                <div class="invalid-feedback">Please enter a valid number of inventors (1-10).</div>
+                            </div>
+                            <div id="inventorDetailsContainer" class="col-12"></div>
+                            <!-- Navigation Button -->
+                            <div class="actions mt-4 d-flex justify-content-between">
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step" data-step="0">Continue</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- STEP 2 -->
+                    <section class="form-step {% if step == 1 %}active{% else %}d-none{% endif %}" data-step="1">
+                        <div class="row">
+                            <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Director Details</h4>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="slogan" class="form-label fw-bold">
+                                    1. Will the Trade Mark / Word Mark / Logo Mark be accompanied by a slogan,
+                                    If yes, give the slogan, <span style="color:#dc3545;">*</span><br>
+                                    If not applicable, mention NA
+                                </label>
+                                <textarea id="slogan" name="slogan" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="color_combination" class="form-label fw-bold">
+                                    2. Specify if color(s) combination is claimed in the Trademark / Word Mark / Logo Mark 
+                                    If yes, clearly indicate it here and state the Color(s), <span style="color:#dc3545;">*</span><br>
+                                    If not Applicable, mention NA
+                                </label>
+                                <textarea id="color_combination" name="color_combination" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="three_dimensional_mark" class="form-label fw-bold">
+                                    3. If the application is in respect of a three-dimensional mark, then please describe in detail<span style="color:#dc3545;">*</span>
+                                </label>
+                                <textarea id="three_dimensional_mark" name="three_dimensional_mark" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="class_details" class="form-label fw-bold">
+                                    4. Class details for the Trademark filing<span style="color:#dc3545;">*</span>, If not Applicable, mention NA
+                                </label>
+                                <textarea id="class_details" name="class_details" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-md-12 col-12">
+                                <div class="mb-3">
+                                    <label for="trademark_image" class="form-label fw-bold">5. Trademark Image PDF<span style="color:#dc3545;">*</span></label>
+                                    <input class="form-control zoom-input" type="file" id="trademark_image" name="trademark_image" accept=".ppt,.pptx,.pdf" required>
+                                    <div class="invalid-feedback">Trademark image is required. Please upload a valid file (.ppt, .pptx, or .pdf).</div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="trademark_status" class="form-label fw-bold">
+                                    6. Whether it is a new trademark or already in use<span style="color:#dc3545;">*</span>, If not Applicable, mention NA
+                                </label>
+                                <textarea id="trademark_status" name="trademark_status" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-md-12 col-12">
+                                <div class="mb-4">
+                                    <label for="proof_of_use" class="form-label fw-bold">7. If already in use, attach the proof<span style="color:#dc3545;">*</span></label>
+                                    <input class="form-control zoom-input" type="file" id="proof_of_use" name="proof_of_use" accept=".ppt,.pptx,.pdf" required>
+                                    <div class="invalid-feedback">Proof of use is required. Please upload a valid file (.ppt, .pptx, or .pdf).</div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label for="duration_of_use" class="form-label fw-bold">
+                                    8. Duration of use<span style="color:#dc3545;">*</span>, If not Applicable, mention NA
+                                </label>
+                                <textarea id="duration_of_use" name="duration_of_use" class="form-control zoom-input" rows="3" placeholder="Type your text here" required></textarea>
+                                <div class="invalid-feedback">This field is required.</div>
+                            </div>
+                            <div class="col-md-12 col-12 mb-4">
+                                <div class="mb-4">
+                                    <label for="supporting_proof" class="form-label fw-bold">9. Supporting proof (such as bills, invoices, or other relevant documents)<span style="color:#dc3545;">*</span></label>
+                                    <input class="form-control zoom-input" type="file" id="supporting_proof" name="supporting_proof" accept=".ppt,.pptx,.pdf" required>
+                                    <div class="invalid-feedback">Supporting proof is required. Please upload a valid file (.ppt, .pptx, or .pdf).</div>
+                                </div>
+                            </div>
+                            <!-- Navigation Buttons -->
+                            <div class="actions mt-4 d-flex justify-content-between">
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step" data-step="1">Back</button>
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 submit-form" data-step="1">Submit</button>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/all.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/aos.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 1100,
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const steps = document.querySelectorAll(".form-step");
+        const stepperDots = document.querySelectorAll(".step");
+        const form = document.getElementById("wizard");
+        const inventorCountInput = document.getElementById("inventor_count");
+        const inventorDetailsContainer = document.getElementById("inventorDetailsContainer");
+        let currentStep = parseInt("{{ step|default:'0' }}", 10);
+
+        // Set max date dynamically to today's date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("date_of_registration").setAttribute("max", today);
+
+        function showStep(step) {
+            steps.forEach((s, i) => {
+                s.classList.toggle("active", i === step);
+                s.classList.toggle("d-none", i !== step);
+            });
+            stepperDots.forEach((dot, i) => {
+                dot.classList.remove("active", "completed");
+                if (i < step) dot.classList.add("completed");
+                if (i === step) dot.classList.add("active");
+            });
+            document.getElementById("step").value = step;
+        }
+
+        // Dynamic Inventor Details
+        inventorCountInput.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value > 10) {
+                value = 10;
+                this.value = value;
+            }
+            this.value = value;
+            const count = parseInt(value) || 0;
+            inventorDetailsContainer.innerHTML = '';
+
+            for (let i = 1; i <= count; i++) {
+                const inventorDiv = document.createElement('div');
+                inventorDiv.className = 'inventor-details';
+                inventorDiv.innerHTML = `
+                    <h5>Inventor ${i} Details</h5>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="inventorName${i}" class="form-label fw-bold">Name <span style="color:#dc3545;">*</span></label>
+                            <input type="text" class="form-control zoom-input" id="inventorName${i}" name="inventorName${i}" required>
+                            <div class="invalid-feedback">Name is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="inventorDesignation${i}" class="form-label fw-bold">Designation <span style="color:#dc3545;">*</span></label>
+                            <input type="text" class="form-control zoom-input" id="inventorDesignation${i}" name="inventorDesignation${i}" required>
+                            <div class="invalid-feedback">Designation is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="inventorDOB${i}" class="form-label fw-bold">DOB <span style="color:#dc3545;">*</span></label>
+                            <input type="date" class="form-control zoom-input" id="inventorDOB${i}" name="inventorDOB${i}" max="${today}" required>
+                            <div class="invalid-feedback">Date of Birth is required and cannot be in the future.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="inventorAadhaar${i}" class="form-label fw-bold">Aadhaar Upload (PDF) <span style="color:#dc3545;">*</span></label>
+                            <input type="file" class="form-control zoom-input" id="inventorAadhaar${i}" name="inventorAadhaar${i}" accept=".pdf" required>
+                            <div class="invalid-feedback">Aadhaar PDF is required.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="inventorMobile${i}" class="form-label fw-bold">Mobile Number <span style="color:#dc3545;">*</span></label>
+                            <input type="text" class="form-control zoom-input" id="inventorMobile${i}" name="inventorMobile${i}" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                            <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="inventorEmail${i}" class="form-label fw-bold">E-mail ID <span style="color:#dc3545;">*</span></label>
+                            <input type="email" class="form-control zoom-input" id="inventorEmail${i}" name="inventorEmail${i}" required>
+                            <div class="invalid-feedback">Valid email is required.</div>
+                        </div>
+                    </div>
+                `;
+                inventorDetailsContainer.appendChild(inventorDiv);
+            }
+        });
+
+        // District Fetching
+        document.getElementById('state').addEventListener('change', function() {
+            const stateId = this.value;
+            if (stateId) {
+                fetch('/get_districts/' + stateId + '/')
+                    .then(response => response.json())
+                    .then(data => {
+                        const districtSelect = document.getElementById('district');
+                        districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+                        data.forEach(function(district) {
+                            const option = document.createElement('option');
+                            option.value = district.id;
+                            option.text = district.name;
+                            districtSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                document.getElementById('district').innerHTML = '<option value="" selected disabled>Select District</option>';
+            }
+        });
+
+
+        function validateStep0() {
+            let isValid = true;
+            const inputs = form.querySelectorAll('[data-step="0"] input[required], [data-step="0"] select[required]');
+            inputs.forEach(input => {
+                input.classList.remove("is-invalid");
+                const feedback = input.nextElementSibling;
+                if (feedback && feedback.classList.contains("invalid-feedback")) {
+                    feedback.style.display = "none";
+                }
+
+                if (!input.checkValidity()) {
+                    input.classList.add("is-invalid");
+                    if (feedback) feedback.style.display = "block";
+                    isValid = false;
+                } else if (input.name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please enter a valid email address.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "contact_number" && !/^\d{10}$/.test(input.value)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please enter a valid 10-digit phone number.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "inventor_count" && (parseInt(input.value) < 1 || parseInt(input.value) > 10 || isNaN(parseInt(input.value)))) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please enter a valid number of inventors (1-10).";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "date_of_registration" && new Date(input.value) > new Date(today)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Date of registration cannot be in the future.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "uam_certificate" && !input.files.length) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Startup India Registration Certificate is required.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "uam_certificate" && input.files.length && !input.files[0].name.match(/\.(ppt|pptx|pdf)$/i)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please upload a valid file (.ppt, .pptx, or .pdf).";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                }
+            });
+
+            // Validate dynamic inventor detail fields
+            const inventorInputs = inventorDetailsContainer.querySelectorAll('input[required], select[required]');
+            inventorInputs.forEach(input => {
+                input.classList.remove("is-invalid");
+                const feedback = input.nextElementSibling;
+                if (!input.checkValidity()) {
+                    input.classList.add("is-invalid");
+                    if (feedback) feedback.style.display = "block";
+                    isValid = false;
+                } else if (input.name.includes("inventorMobile") && !/^\d{10}$/.test(input.value)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please enter a valid 10-digit mobile number.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name.includes("inventorEmail") && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please enter a valid email address.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name.includes("inventorDOB") && new Date(input.value) > new Date(today)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Date of birth cannot be in the future.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name.includes("inventorAadhaar") && input.files.length && !input.files[0].name.match(/\.pdf$/i)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please upload a valid PDF file.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        }
+
+        function validateStep1() {
+            let isValid = true;
+            const inputs = form.querySelectorAll('[data-step="1"] input[required], [data-step="1"] textarea[required]');
+            inputs.forEach(input => {
+                input.classList.remove("is-invalid");
+                const feedback = input.nextElementSibling;
+                if (feedback && feedback.classList.contains("invalid-feedback")) {
+                    feedback.style.display = "none";
+                }
+
+                if (!input.checkValidity()) {
+                    input.classList.add("is-invalid");
+                    if (feedback) feedback.style.display = "block";
+                    isValid = false;
+                } else if (input.name === "trademark_image" && input.files.length && !input.files[0].name.match(/\.(ppt|pptx|pdf)$/i)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please upload a valid file (.ppt, .pptx, or .pdf).";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "proof_of_use" && !input.files.length) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Proof of use is required.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "proof_of_use" && input.files.length && !input.files[0].name.match(/\.(ppt|pptx|pdf)$/i)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please upload a valid file (.ppt, .pptx, or .pdf).";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "supporting_proof" && !input.files.length) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Supporting proof is required.";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                } else if (input.name === "supporting_proof" && input.files.length && !input.files[0].name.match(/\.(ppt|pptx|pdf)$/i)) {
+                    input.classList.add("is-invalid");
+                    if (feedback) {
+                        feedback.textContent = "Please upload a valid file (.ppt, .pptx, or .pdf).";
+                        feedback.style.display = "block";
+                    }
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        }
+
+        document.querySelectorAll(".next-step").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                if (currentStep === 0) {
+                    if (!validateStep0()) return;
+
+                    const formData = new FormData(form);
+                    formData.append('step', currentStep);
+                    const inventorInputs = inventorDetailsContainer.querySelectorAll('input, select');
+                    inventorInputs.forEach(input => {
+                        if (input.type === 'file' && input.files.length) {
+                            formData.append(input.name, input.files[0]);
+                        } else {
+                            formData.append(input.name, input.value);
+                        }
+                    });
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                            }
+                        });
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        const result = await response.json();
+                        if (result.status === 'success') {
+                            currentStep = result.next_step;
+                            showStep(currentStep);
+                        } else {
+                            const errors = JSON.parse(result.errors);
+                            Object.keys(errors).forEach(field => {
+                                const input = form.querySelector(`[name="${field}"]`) || inventorDetailsContainer.querySelector(`[name="${field}"]`);
+                                if (input) {
+                                    input.classList.add("is-invalid");
+                                    const feedback = input.nextElementSibling;
+                                    if (feedback) {
+                                        feedback.textContent = errors[field][0].message;
+                                        feedback.style.display = "block";
+                                    }
+                                }
+                            });
+                        }
+                    } catch (error) {
+                        console.error("Error submitting step 0:", error);
+                        alert("An error occurred. Please try again.");
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll(".prev-step").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+        });
+
+        document.querySelectorAll(".submit-form").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                if (currentStep === 1 && !validateStep1()) return;
+
+                const formData = new FormData(form);
+                formData.append('step', currentStep);
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        $('#successModal').modal('show');
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 2000);
+                    } else {
+                        const errors = JSON.parse(result.errors);
+                        Object.keys(errors).forEach(field => {
+                            const input = form.querySelector(`[name="${field}"]`);
+                            if (input) {
+                                input.classList.add("is-invalid");
+                                const feedback = input.nextElementSibling;
+                                if (feedback) {
+                                    feedback.textContent = errors[field][0].message;
+                                    feedback.style.display = "block";
+                                }
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error("Error submitting form:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        });
+
+        // Initialize inventor fields if there's a value
+        if (inventorCountInput.value) {
+            inventorCountInput.dispatchEvent(new Event('input'));
+        }
+
+        // Initialize district fetch if state is pre-selected
+        const stateSelect = document.getElementById('state');
+        if (stateSelect.value) {
+            stateSelect.dispatchEvent(new Event('change'));
+        }
+
+        showStep(currentStep);
+    });
+</script>
+</body>
+</html>

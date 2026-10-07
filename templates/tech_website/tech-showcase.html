@@ -1,0 +1,600 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | Technology Showcase</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <style>
+        .navbar-light .navbar-nav .nav-link {
+            color: rgb(0, 0, 0);
+            padding: 13px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+        nav .nav-link:hover {
+            color: rgb(255, 116, 26) !important;
+        }
+        header {
+            width: 100%;
+            background: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px #0006;
+        }
+        .navbar-brand img {
+            max-height: 80px;
+            transition: all 0.3s ease-in-out;
+        }
+        .navbar-nav .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown-menu {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dropdown-menu :hover {
+            color: rgb(255, 116, 26) !important;
+        }
+        .nav-item.dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item:active {
+            color: #fff;
+            text-decoration: none;
+            background-color: transparent !important;
+        }
+        @media (min-width: 1200px) and (max-width: 1400px) {
+            .navbar-light .navbar-nav .nav-link {
+                padding: 13px;
+                font-size: 16px;
+            }
+        }
+        .border-ipclinic {
+            border-width: 1px;
+            border-style: dashed;
+            border-color: rgb(243, 112, 33);
+            border-radius: 8px;
+        }
+        .tech-gallery img {
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="header-section">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-1">
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                        <img src="{% static 'assets/images/govt-logo.svg' %}" alt="Govt Logo" class="img-fluid mainlogo-2">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="iTNT Logo" class="img-fluid itnt-logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about' %}">About TNTTFC</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'programs' %}">Programs</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown">
+                                    Technology Portfolio
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'technology' %}">Technology Available</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'technology_transfer' %}">Technology Transfer</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Services
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'ipmanagement' %}">IP Management</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-0" href="{% url 'contactus' %}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </section>
+
+    <section class="banner-section program-bgimg" style="background-image: url('../../static/assets/images/programs-bg.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 col-12 order-2 order-lg-1">
+                    <div class="ban-content d-flex align-items-center justify-content-center">
+                        <h1 data-aos="fade-right"><span data-aos="fade-up">Technology Showcase</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Awareness Program Section -->
+<section class="titleh4 py-5 bg-light-blue " id="awareness-program">
+    <div class="container py-lg-4">
+        <div class="row mb-3">
+           <div class="col-md-12">
+              <div class="pe-lg-4 mt-4 mt-lg-0">
+                <div class="mb-3 custom-underline text-start aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                  <h4 class="position-relative d-inline-block mb-2">Awareness Program</h4>
+                  <div class="underline"></div>
+                  <p class="mt-2">Masterclassess on Intellectual Property, Copyrights & Trademarks and IP Protection</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/aware-4.JPG' %}" data-fancybox="gallery" data-caption="Awareness Program 2">
+                        <img src="{% static './assets/images/aware-4.JPG' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/aware-6.JPG' %}" data-fancybox="gallery" data-caption="Awareness Program 7">
+                        <img src="{% static './assets/images/aware-6.JPG' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/aware-2.JPG' %}" data-fancybox="gallery" data-caption="Awareness Program 4">
+                        <img src="{% static './assets/images/aware-2.JPG' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/aware-7.JPG' %}" data-fancybox="gallery" data-caption="Awareness Program 6">
+                        <img src="{% static './assets/images/aware-7.JPG' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/aware-8.JPG' %}" data-fancybox="gallery" data-caption="Awareness Program 7">
+                        <img src="{% static './assets/images/aware-8.JPG' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/aware-1.JPG' %}" data-fancybox="gallery" data-caption="Awareness Program 3">
+                        <img src="{% static './assets/images/aware-1.JPG' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- IP Clinic Section -->
+    <section class="titleh4 py-5" id="ip-clinic">
+        <div class="container py-lg-4">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="pe-lg-4 mt-4 mt-lg-0">
+                        <div class="mb-3 custom-underline text-start aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="position-relative d-inline-block mb-2">IP Clinic</h4>
+                            <div class="underline"></div>
+                            <p class="mt-2">Startups Mentoring session on IP management</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+            <a href="{% static './assets/images/ip-clinic1.jpg' %}" data-fancybox="gallery" data-caption="Ip Clinic 1">
+                <img src="{% static './assets/images/ip-clinic1.jpg' %}" alt="" class="img-fluid">
+            </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+            <a href="{% static './assets/images/ip-clinic2.jpg' %}" data-fancybox="gallery" data-caption="Ip Clinic 2">
+                <img src="{% static './assets/images/ip-clinic2.jpg' %}" alt="" class="img-fluid">
+            </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+            <a href="{% static './assets/images/ip-clinic3.jpg' %}" data-fancybox="gallery" data-caption="Ip Clinic 3">
+                <img src="{% static './assets/images/ip-clinic3.jpg' %}" alt="" class="img-fluid">
+            </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+            <a href="{% static './assets/images/ip-clinic4.jpg' %}" data-fancybox="gallery" data-caption="Ip Clinic 4">
+                <img src="{% static './assets/images/ip-clinic4.jpg' %}" alt="" class="img-fluid">
+            </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+            <a href="{% static './assets/images/ip-clinic5.jpg' %}" data-fancybox="gallery" data-caption="Ip Clinic 5">
+                <img src="{% static './assets/images/ip-clinic5.jpg' %}" alt="" class="img-fluid">
+            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="titleh4 py-5 spotlight-bg " id="research2revenue">
+    <div class="container py-lg-4">
+        <div class="row mb-3">
+           <div class="col-md-12">
+              <div class="pe-lg-4 mt-4 mt-lg-0">
+                <div class="mb-3 custom-underline text-start aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                  <h4 class="position-relative d-inline-block mb-2">Research2Revenue (R2R) Program</h4>
+                  <div class="underline"></div>
+                  <p class="mt-2">Investor Pitching sessions</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/r2rprogram-1.jpg' %}" data-fancybox="gallery" data-caption="Research2Revenue 1">
+                        <img src="{% static './assets/images/r2rprogram-1.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/r2rprogram-2.jpg' %}" data-fancybox="gallery" data-caption="Research2Revenue 2">
+                        <img src="{% static './assets/images/r2rprogram-2.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/r2rprogram-5.jpg' %}" data-fancybox="gallery" data-caption="Research2Revenue 4">
+                        <img src="{% static './assets/images/r2rprogram-5.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/r2rprogram-3.jpg' %}" data-fancybox="gallery" data-caption="Research2Revenue 3">
+                        <img src="{% static './assets/images/r2rprogram-3.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/r2rprogram-4.jpg' %}" data-fancybox="gallery" data-caption="Research2Revenue 4">
+                        <img src="{% static './assets/images/r2rprogram-4.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/r2rprogram-6.jpg' %}" data-fancybox="gallery" data-caption="Research2Revenue 4">
+                        <img src="{% static './assets/images/r2rprogram-6.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <section class="titleh4 py-5 " id="innovation-spotlight">
+    <div class="container py-lg-4">
+        <div class="row mb-3">
+           <div class="col-md-12">
+              <div class="pe-lg-4 mt-4 mt-lg-0">
+                <div class="mb-3 custom-underline text-start aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                  <h4 class="position-relative d-inline-block mb-2">Innovation Spotlight</h4>
+                  <div class="underline"></div>
+                  <p class="mt-2">Researchers showcase their innovation at IP Conclave</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/innovation-1.jpg' %}" data-fancybox="gallery" data-caption="Innovation Spotlight 1">
+                        <img src="{% static './assets/images/innovation-1.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/innovation-2.jpg' %}" data-fancybox="gallery" data-caption="Innovation Spotlight 2">
+                        <img src="{% static './assets/images/innovation-2.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/innovation-3.jpg' %}" data-fancybox="gallery" data-caption="Innovation Spotlight 3">
+                        <img src="{% static './assets/images/innovation-3.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/innovation-4.jpg' %}" data-fancybox="gallery" data-caption="Innovation Spotlight 4">
+                        <img src="{% static './assets/images/innovation-4.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <div class="tech-gallery">
+                    <a href="{% static './assets/images/innovation-5.jpg' %}" data-fancybox="gallery" data-caption="Innovation Spotlight 5">
+                        <img src="{% static './assets/images/innovation-5.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Tech Transfer Section -->
+    <section class="titleh4 py-5 bg-light-blue " id="tech-transfer">
+        <div class="container py-lg-4">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="pe-lg-4 mt-4 mt-lg-0">
+                        <div class="mb-3 custom-underline text-start aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="position-relative d-inline-block mb-2">Tech Transfer</h4>
+                            <div class="underline"></div>
+                            <p class="mt-2">Transfer of Technology Between Researcher & Industry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/tech-transfer4.jpg' %}" data-fancybox="gallery" data-caption="Tech Transfer 3">
+                        <img src="{% static './assets/images/tech-transfer4.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/tech-transfer5.jpg' %}" data-fancybox="gallery" data-caption="Tech Transfer 3">
+                        <img src="{% static './assets/images/tech-transfer5.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/tech-transfer1.jpg' %}" data-fancybox="gallery" data-caption="Tech Transfer 1">
+                        <img src="{% static './assets/images/tech-transfer1.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/tech-transfer2.jpg' %}" data-fancybox="gallery" data-caption="Tech Transfer 2">
+                        <img src="{% static './assets/images/tech-transfer2.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/tech-transfer3.jpg' %}" data-fancybox="gallery" data-caption="Tech Transfer 3">
+                        <img src="{% static './assets/images/tech-transfer3.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/tech-transfer6.jpg' %}" data-fancybox="gallery" data-caption="Tech Transfer 6">
+                        <img src="{% static './assets/images/tech-transfer6.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beacon Section -->
+    <section class="titleh4 py-5" id="beacon">
+        <div class="container py-lg-4">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="pe-lg-4 mt-4 mt-lg-0">
+                        <div class="mb-3 custom-underline text-start aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="position-relative d-inline-block mb-2">Beacon</h4>
+                            <div class="underline"></div>
+                            <p class="mt-2">Idea validation Bootcamp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/beacon-2.jpg' %}" data-fancybox="gallery" data-caption="Beacon 2">
+                        <img src="{% static './assets/images/beacon-2.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/beacon-4.jpg' %}" data-fancybox="gallery" data-caption="Beacon 3">
+                        <img src="{% static './assets/images/beacon-4.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/beacon-5.jpg' %}" data-fancybox="gallery" data-caption="Beacon 3">
+                        <img src="{% static './assets/images/beacon-5.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/beacon-6.jpg' %}" data-fancybox="gallery" data-caption="Beacon 3">
+                        <img src="{% static './assets/images/beacon-6.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/beacon-3.jpg' %}" data-fancybox="gallery" data-caption="Beacon 3">
+                        <img src="{% static './assets/images/beacon-3.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-12">
+                    <div class="tech-gallery">
+                    <a href="{% static './assets/images/beacon-1.jpg' %}" data-fancybox="gallery" data-caption="Beacon 1">
+                        <img src="{% static './assets/images/beacon-1.jpg' %}" alt="" class="img-fluid">
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="footer-logo">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="" class="img-fluid">
+                        <h5>TNTTFC </h5>
+                        <h5>Tamil Nadu Technology (iTNT) Hub, </h5>
+                    </div>
+                    <div class="footer-content">
+                        <p>3rd Floor, Sir C.V. Raman Science Block, Anna University Campus, Kotturpuram, Chennai, Tamil Nadu - 600025 <br> Phone: <a href="tel:7305980220">7305980220</a> <br> Daniel Prabhakaran G: <a href="mailto:daniel@tnthub.org">daniel@tnthub.org</a></p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://x.com/itntHub" class="twitter" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/people/iTNT-Hub/61562141153619/" class="facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/itnthub/posts/?feedView=all" class="linkedin" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@itnthub" class="youtube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-2"></div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'programs' %}">Programs</a></li>
+                            <li><a href="{% url 'technology' %}">Technologies</a></li>
+                            <!-- <li><a href="{% url 'services' %}">Services</a></li> -->
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="{% url 'ipmanagement' %}">IP Management</a></li>
+                            <li><a href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                            <li><a href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                            <li><a href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Help Center</h4>
+                        <ul>
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                            <!-- <li><a href="#">Knowledge</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Support</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <section class="footer-bottom">
+        <p class="copyright mb-0">© 2025. All rights reserved.</p>
+    </section>
+
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/all.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    <script src="{% static 'assets/js/aos.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1200,
+        });
+    </script>
+        <script>
+        // Fancybox Config
+        $('[data-fancybox="gallery"]').fancybox({
+            buttons: [
+                "slideShow",
+                "thumbs",
+                "zoom",
+                "fullScreen",
+                "share",
+                "close"
+            ],
+            loop: false,
+            protect: true
+        });
+    </script>
+</body>
+</html>

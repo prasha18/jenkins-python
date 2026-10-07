@@ -1,0 +1,809 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | Innovation Voucher Programme</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <style>
+        .zoom-input {transition: transform 0.2s ease, box-shadow 0.3s ease;}
+        .zoom-input:focus { transform: scale(1.05); box-shadow: 0 0 10px #f3d3bf; outline: none; }
+        .stepper-vertical::before { height: calc(89% - 1.5rem); }
+        .stepper-vertical::before { top: 26px; }
+        .form-control { padding: .705rem .75rem !important; }
+        .form-select { padding: .705rem .75rem !important; border: 1px solid #ffd5ba; background-color: #f8f9fa; }
+        .option-list { padding-left: 1.5rem; margin: 0; text-align: justify; }
+        .option-list li { margin-bottom: 0.5rem; line-height: 1.5; }
+        .label { text-align: justify; }
+        @media (min-width: 1073px) and (max-width: 1671px) { 
+            .marginh-lg { margin-bottom: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid leftsidebar">
+    <div class="row">
+        <!-- Left Sidebar Stepper -->
+        <div class="col-12 col-md-4 col-lg-3 bg-technology text-white min-vh-100 d-flex flex-column justify-content-center position-fixed">
+            <div class="text-center mb-3 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+                <img src="{% static 'assets/images/form-logo.png' %}" alt="Form Logo" class="img-fluid logo-img">
+            </div>
+            <div class="px-3 px-md-4">
+                <h4 class="fw-bold mb-5 text-center aos-init" data-aos="fade-up" data-aos-delay="500">Innovation Voucher Programme Application</h4>
+                <div class="stepper-vertical text-center justify-content-center ms-5" aria-label="Form progress">
+                    <div class="step active" data-step="0">
+                        <div class="dot">1</div>
+                        <label class="d-block">Personal Information</label>
+                    </div>
+                    <div class="step" data-step="1">
+                        <div class="dot">2</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Project Details</label>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="dot">3</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Project Milestone</label>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="dot">4</div>
+                        <label class="d-block aos-init" data-aos="zoom-in" data-aos-delay="200">Acknowledgment</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Content Area -->
+        <div class="col-md-8 col-lg-9 offset-md-4 offset-lg-3 d-flex p-5">
+            <div class="card shadow p-4 w-100 h-100">
+                <form id="wizard" action="{% url 'techforms:innovation_voucherform' %}" method="post" class="h-100 d-flex flex-column" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="step" id="current_step" value="0">
+                    
+                    <section class="form-step active" data-step="0">
+                        <div class="row">         
+                            <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Personal Information</h4>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="startup_name" class="form-label fw-bold">
+                                    Name of the Startup <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="startup_name" name="startup_name" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Startup name is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="dpiit_number" class="form-label fw-bold">
+                                    DPIIT No / UAM <span style="color:#dc3545;">*</span> Startup Registration No
+                                </label>
+                                <input id="dpiit_number" name="dpiit_number" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">DPIIT number is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="address" class="form-label fw-bold">
+                                    Address <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="address" name="address" type="text" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Address is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="country" class="form-label fw-bold">
+                                    Country <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="country" name="country" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select Country</option>
+                                    <option value="india">India</option>
+                                    <option value="usa">USA</option>
+                                    <option value="uk">UK</option>
+                                </select>
+                                <div class="invalid-feedback">Country is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="state" class="form-label fw-bold">
+                                    State <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="state" name="state" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select State</option>
+                                    {% for state in states %}
+                                        <option value="{{ state.id }}">{{ state.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">State is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="district" class="form-label fw-bold">
+                                    District <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="district" name="district" class="form-select zoom-input" required>
+                                    <option value="" selected disabled>Select District</option>
+                                </select>
+                                <div class="invalid-feedback">District is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="email" class="form-label fw-bold">
+                                    E-mail ID <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="email" name="email" type="email" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Valid email is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="contact_number" class="form-label fw-bold">
+                                    Contact No <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="contact_number" name="contact_number" type="tel" class="form-control zoom-input" pattern="[0-9]{10}" maxlength="10" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
+                                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="company_classification" class="form-label fw-bold">
+                                    Company Classification <span style="color:#dc3545;">*</span>
+                                </label>
+                                <select id="company_classification" name="company_classification" class="form-select zoom-input" required>
+                                    <option value="" disabled selected>Select company type</option>
+                                    <option value="Micro Enterprise">Micro Enterprise</option>
+                                    <option value="Small Enterprise">Small Enterprise</option>
+                                    <option value="Medium Enterprise">Medium Enterprise</option>
+                                    <option value="Startup">Startup (DPIIT Certificated)</option>
+                                </select>
+                                <div class="invalid-feedback">Company classification is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="date_of_registration" class="form-label fw-bold">
+                                    Date Of Registration <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="date_of_registration" name="date_of_registration" type="date" class="form-control zoom-input" max="2025-09-28" required>
+                                <div class="invalid-feedback">Date of registration is required and cannot be in the future.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="uam_certificate" class="form-label fw-bold">UAM <span style="color:#dc3545;">*</span>(MSME) /
+                                    Startup India Registration Certificate</label>
+                                <input type="file" class="form-control zoom-input" id="uam_certificate" name="uam_certificate" accept=".pdf,.jpg,.png" required>
+                                <div class="invalid-feedback">UAM certificate is required.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="turnover" class="form-label fw-bold marginh-lg">Annual Turnover (Last Year)</label>
+                                <input type="number" class="form-control zoom-input" id="turnover" name="turnover">
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="website" class="form-label fw-bold">
+                                    Website
+                                </label>
+                                <input id="website" name="website" type="url" class="form-control zoom-input" placeholder="https://example.com">
+                                <div class="invalid-feedback">Please enter a valid URL.</div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4">
+                                <label for="director_count" class="form-label fw-bold">
+                                    No. of Directors <span style="color:#dc3545;">*</span>
+                                </label>
+                                <input id="director_count" name="director_count" type="number" min="1" max="10" class="form-control zoom-input" required>
+                                <div class="invalid-feedback">Please enter a number of directors between 1 and 10.</div>
+                            </div>
+                            <div id="directorDetailsContainer" class="col-12"></div>
+                            <!-- Navigation Button -->
+                            <div class="actions mt-4 d-flex justify-content-between">
+                                <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step">Continue</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- STEP 2 -->
+                    <section class="form-step" data-step="1" style="display:none;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                                    <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Details of the project</h4>
+                                    <small class="fs-6 text-uppercase">(All the details must be in 5000 characters)</small>
+                                </div>
+                                <!-- Voucher Type -->
+                                <div class="col-12 mb-3">
+                                    <label for="voucher_type" class="form-label fw-bold">Voucher Type <span style="color:#dc3545;">*</span></label>
+                                    <select id="voucher_type" name="voucher_type" class="form-select zoom-input" required>
+                                        <option value="" disabled selected>Select Voucher Type</option>
+                                        <option value="A">Voucher A – Grant upto Rs.5 lakhs or 80% of Project Cost (for converting the idea into working prototype)</option>
+                                        <option value="B">Voucher B – Grant upto Rs.7.5 lakhs or 80% of Project Cost (for converting the prototype into a product)</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a voucher type.</div>
+                                </div>               
+                                <div class="group col-md-12 col-12 mb-4">
+                                    <label for="project_title" class="form-label fw-bold">Project Title <span style="color:#dc3545;">*</span></label>
+                                    <input id="project_title" name="project_title" class="form-control zoom-input" required placeholder="Enter your project title" />
+                                    <div class="invalid-feedback">Project title is required.</div>
+                                </div>              
+                                <div class="group col-md-12 col-12 mb-4">
+                                    <label for="product_name" class="form-label fw-bold">Name of the Product <span style="color:#dc3545;">*</span></label>
+                                    <input id="product_name" name="product_name" class="form-control zoom-input" required placeholder="Enter product name" />
+                                    <div class="invalid-feedback">Product name is required.</div>
+                                </div>           
+                                <div class="group col-md-6 col-12 mb-4">
+                                    <label for="problem_statement" class="form-label fw-bold">Problem Statement <span style="color:#dc3545;">*</span></label>
+                                    <textarea id="problem_statement" name="problem_statement" class="form-control zoom-input" rows="4" maxlength="5000" required placeholder="Describe the problem"></textarea>
+                                    <div class="invalid-feedback">Problem statement is required.</div>
+                                </div>
+                                <div class="group col-md-6 col-12 mb-4">
+                                    <label for="solution_proposed" class="form-label fw-bold">Solution Proposed <span style="color:#dc3545;">*</span></label>
+                                    <textarea id="solution_proposed" name="solution_proposed" class="form-control zoom-input" rows="4" maxlength="5000" required placeholder="Describe the solution"></textarea>
+                                    <div class="invalid-feedback">Solution proposed is required.</div>
+                                </div>
+                                <div class="group col-md-6 col-12 mb-4">
+                                    <label for="detailed_description" class="form-label fw-bold">Detailed Description of the Product and Service <span style="color:#dc3545;">*</span></label>
+                                    <textarea id="detailed_description" name="detailed_description" class="form-control zoom-input" rows="4" maxlength="5000" required placeholder="Enter detailed description"></textarea>
+                                    <div class="invalid-feedback">Detailed description is required.</div>
+                                </div>
+                                <div class="group col-md-6 col-12 mb-4">
+                                    <label for="invention_upgrade" class="form-label fw-bold">Is it an invention or an upgrade to an existing product/service? <span style="color:#dc3545;">*</span></label>
+                                    <textarea id="invention_upgrade" name="invention_upgrade" class="form-control zoom-input" rows="4" maxlength="5000" required placeholder="Specify invention or upgrade"></textarea>
+                                    <div class="invalid-feedback">This field is required.</div>
+                                </div>
+                                <div class="group col-md-6 col-12 mb-4">
+                                    <label for="scope" class="form-label fw-bold">Scope of the Project <span style="color:#dc3545;">*</span></label>
+                                    <textarea id="scope" name="scope" class="form-control zoom-input" rows="4" maxlength="5000" required placeholder="Describe the scope"></textarea>
+                                    <div class="invalid-feedback">Scope is required.</div>
+                                </div>
+                                <div class="group col-md-6 col-12 mb-4">
+                                    <label for="need" class="form-label fw-bold">Need of the Project <span style="color:#dc3545;">*</span></label>
+                                    <textarea id="need" name="need" class="form-control zoom-input" rows="4" maxlength="5000" required placeholder="Explain the need"></textarea>
+                                    <div class="invalid-feedback">Need is required.</div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="mb-3">
+                                        <label for="competitive_advantage" class="form-label fw-bold marginh-lg">Competitive and Technical Advantage <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="competitive_advantage" name="competitive_advantage" rows="4" maxlength="5000" required placeholder="Describe the competitive and technical advantage"></textarea>
+                                        <div class="invalid-feedback">Competitive advantage is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="mb-3">
+                                        <label for="social_impact" class="form-label fw-bold">Social and Environmental Impact of the Idea / Product <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="social_impact" name="social_impact" rows="4" maxlength="5000" required placeholder="Describe social and environmental impact"></textarea>
+                                        <div class="invalid-feedback">Impact details are required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="mb-3">
+                                        <label for="collaboration" class="form-label fw-bold">What is the Collaboration with Other Companies / Organizations <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="collaboration" name="collaboration" rows="4" maxlength="5000" required placeholder="Describe collaborations"></textarea>
+                                        <div class="invalid-feedback">Collaboration details are required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="mb-3">
+                                        <label for="benefits" class="form-label fw-bold">What are the tangible benefits expected on the idea ? <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="benefits" name="benefits" rows="4" maxlength="5000" required placeholder="Explain expected benefits"></textarea>
+                                        <div class="invalid-feedback">Benefits are required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="mb-3">
+                                        <label for="price_advantage" class="form-label fw-bold">What is the price advantage to customers <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="price_advantage" name="price_advantage" rows="4" maxlength="5000" required placeholder="Explain price advantage"></textarea>
+                                        <div class="invalid-feedback">Price advantage is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="mb-3">
+                                        <label for="project_cost" class="form-label fw-bold marginh-lg">Total Cost of the Project <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="project_cost" name="project_cost" rows="4" maxlength="5000" required placeholder="Enter total project cost"></textarea>
+                                        <div class="invalid-feedback">Project cost is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="target_dates" class="form-label fw-bold">Mention the target dates for completion of the prototype or to develop market ready product <span style="color:#dc3545;">*</span></label>
+                                        <textarea class="form-control zoom-input" id="target_dates" name="target_dates" rows="4" maxlength="10000" required placeholder="Enter target dates"></textarea>
+                                        <div class="invalid-feedback">Target dates are required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-3">
+                                        <label for="ppt_upload" class="form-label fw-bold">Upload PPT Presentation <span style="color:#dc3545;">*</span></label>
+                                        <input class="form-control zoom-input" type="file" id="ppt_upload" name="ppt_upload" accept=".ppt,.pptx,.pdf" required>
+                                        <div class="invalid-feedback">PPT file is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-3">
+                                        <label for="youtube_link" class="form-label fw-bold">YouTube Video Link</label>
+                                        <input type="text" class="form-control zoom-input" id="youtube_link" name="youtube_link" placeholder="https://www.youtube.com/watch?v=example">
+                                        <div class="invalid-feedback">Please enter a valid link.</div>
+                                    </div>
+                                </div>
+                                <div class="actions mt-4 d-flex justify-content-between">
+                                    <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step">Back</button>
+                                    <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Step 3 -->
+                    <section class="form-step" data-step="2" style="display:none;">
+                        <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;">Project Milestone / Activity</h4>
+                            <small class="fs-6 text-uppercase">(NOTE- THIS SHOULD BE IN AMOUNT NUMERICAL)</small>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle text-center">
+                                <thead class="" style="background-color: #ffeed7 !important;">
+                                    <tr>
+                                        <th>Project Milestone / Activity</th>
+                                        <th>Estimated Cost (IN RUPEES)</th>
+                                        <th>IVP Contribution (IN RUPEES)</th>
+                                        <th>Applicant Contribution (IN RUPEES)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: left;">1. Outsourcing Charges, R&D, Consultancy, Engineering Design Work</td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="outsourcing_charges" name="outsourcing_charges" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="outsourcing_ivp" name="outsourcing_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="outsourcing_applicant" name="outsourcing_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2. Raw materials / Consumables / Spares</td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="raw_materials" name="raw_materials" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="raw_ivp" name="raw_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="raw_applicant" name="raw_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">3. Fabrication / Manufacturing charges for POC & Prototype Development</td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="fabrication_charges" name="fabrication_charges" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="fabrication_ivp" name="fabrication_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="fabrication_applicant" name="fabrication_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">4. Intellectual Property Rights / Patent Filing</td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="ipr_patent" name="ipr_patent" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="ipr_ivp" name="ipr_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="ipr_applicant" name="ipr_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">5. Testing and Validation / Laboratory Verification / Certification</td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="testing_validation" name="testing_validation" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="testing_ivp" name="testing_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="testing_applicant" name="testing_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">6. Commercialisation Support Services / Consulting / Feasibility Studies / Strategies to Market Entry Support</td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="commercialization_support" name="commercialization_support" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="commercialization_ivp" name="commercialization_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="commercialization_applicant" name="commercialization_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-2">7.Others</span>
+                                                <input type="text" class="form-control" id="other1_activity" name="other1_activity" style="max-width:250px;" required>
+                                            </div>
+                                        </td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="other1_cost" name="other1_cost" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="other1_ivp" name="other1_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="other1_applicant" name="other1_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-2">8.Others</span>
+                                                <input type="text" class="form-control" id="other2_activity" name="other2_activity" style="max-width:250px;" required>
+                                            </div>
+                                        </td>
+                                        <td><input type="number" class="form-control cost-input" data-type="estimated" id="other2_cost" name="other2_cost" placeholder="Enter cost" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="ivp" id="other2_ivp" name="other2_ivp" placeholder="Amount" min="0" step="0.01" required></td>
+                                        <td><input type="number" class="form-control cost-input" data-type="applicant" id="other2_applicant" name="other2_applicant" placeholder="Amount" min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr class="fw-bold" style="background-color: #ffeed7 !important;">
+                                        <td style="text-align: center;">TOTAL (IN RUPEES)</td>
+                                        <td><input type="number" class="form-control bg-white" id="total_estimated_cost" name="total_estimated_cost" placeholder="Enter total" readonly></td>
+                                        <td><input type="number" class="form-control bg-white" id="total_ivp_contribution" name="total_ivp_contribution" placeholder="Amount" readonly></td>
+                                        <td><input type="number" class="form-control bg-white" id="total_applicant_contribution" name="total_applicant_contribution" placeholder="Amount" readonly></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <div class="actions mt-4 d-flex justify-content-between">              
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step">Back</button>           
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 next-step">Continue</button>
+                        </div>
+                    </section>
+                    
+                    <!-- Step 4 -->
+                    <section class="form-step" data-step="3" style="display:none;">
+                        <div class="fs-2 fw-bold mb-3 custom-underline text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="position-relative d-inline-block mb-5" style="color:#ffa932;"> Request For Knowledge Partner</h4>
+                        </div>
+                        <div class="row g-3">
+                            <div class="mb-3">
+                                <div class="form-check d-flex align-items-center">
+                                    <input class="form-check-input me-2" type="checkbox" id="request_knowledge_partner" name="request_knowledge_partner">
+                                    <label class="form-check-label ps-2" for="request_knowledge_partner" style="word-spacing: 2.2px;">
+                                        I would like to request knowledge partner can send from iTNT
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <div class="actions mt-4 d-flex justify-content-between">
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 prev-step">Back</button>
+                            <button type="button" class="btn orange-btn btn-effect-13 py-2 submit-form">Submit</button>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Form Submitted Successfully
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorMessage">
+                An error occurred while submitting your form. Please try again.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/all.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/aos.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 1100,
+    });
+
+    const steps = document.querySelectorAll(".form-step");
+    const stepperDots = document.querySelectorAll(".step");
+    let currentStep = 0;
+    const today = '2025-09-28'; // Current date as of September 28, 2025
+
+    function showStep(step) {
+        steps.forEach((s, i) => {
+            s.style.display = i === step ? "block" : "none";
+        });
+        stepperDots.forEach((dot, i) => {
+            dot.classList.remove("active", "completed");
+            if (i === step) dot.classList.add("active");
+            else if (i < step) dot.classList.add("completed");
+        });
+        
+        // Update hidden step field
+        document.getElementById('current_step').value = step;
+    }
+
+    // Dynamic Director Details
+    document.getElementById('director_count').addEventListener('input', function() {
+        const count = parseInt(this.value) || 0;
+        const container = document.getElementById('directorDetailsContainer');
+        container.innerHTML = '';
+
+        if (count < 1 || count > 10) {
+            this.classList.add('is-invalid');
+            this.classList.remove('is-valid');
+            return;
+        }
+
+        for (let i = 1; i <= count; i++) {
+            const directorDiv = document.createElement('div');
+            directorDiv.className = 'director-details mb-4';
+            directorDiv.innerHTML = `
+                <h5 class="mb-3">Director ${i} Details</h5>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="director_name_${i}" class="form-label fw-bold">Name <span style="color:#dc3545;">*</span></label>
+                        <input type="text" class="form-control zoom-input" id="director_name_${i}" name="director_name_${i}" required>
+                        <div class="invalid-feedback">Name is required.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="director_designation_${i}" class="form-label fw-bold">Designation <span style="color:#dc3545;">*</span></label>
+                        <input type="text" class="form-control zoom-input" id="director_designation_${i}" name="director_designation_${i}" required>
+                        <div class="invalid-feedback">Designation is required.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="director_dob_${i}" class="form-label fw-bold">DOB <span style="color:#dc3545;">*</span></label>
+                        <input type="date" class="form-control zoom-input" id="director_dob_${i}" name="director_dob_${i}" max="${today}" required>
+                        <div class="invalid-feedback">Date of Birth is required and cannot be in the future.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="director_aadhar_${i}" class="form-label fw-bold">Aadhar (PDF) <span style="color:#dc3545;">*</span></label>
+                        <input type="file" class="form-control zoom-input" id="director_aadhar_${i}" name="director_aadhar_${i}" accept=".pdf" required>
+                        <div class="invalid-feedback">Aadhar PDF is required.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="director_mobile_${i}" class="form-label fw-bold">Mobile Number <span style="color:#dc3545;">*</span></label>
+                        <input type="tel" class="form-control zoom-input" id="director_mobile_${i}" name="director_mobile_${i}" pattern="[0-9]{10}" maxlength="10" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
+                        <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="director_email_${i}" class="form-label fw-bold">E-mail ID <span style="color:#dc3545;">*</span></label>
+                        <input type="email" class="form-control zoom-input" id="director_email_${i}" name="director_email_${i}" required>
+                        <div class="invalid-feedback">Valid email is required.</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(directorDiv);
+        }
+    });
+
+    // Validate step function
+    function validateStep(stepIndex) {
+        const currentStepElement = steps[stepIndex];
+        const inputs = currentStepElement.querySelectorAll('input, select, textarea');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            const isRequired = input.hasAttribute('required');
+            const value = input.type === 'checkbox' ? input.checked : input.type === 'file' ? input.files.length : input.value.trim();
+            
+            if (isRequired && !value) {
+                isValid = false;
+                input.classList.add('is-invalid');
+                input.classList.remove('is-valid');
+            } else {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+                
+                // Additional validation for specific field types
+                if (input.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    input.classList.remove('is-valid');
+                }
+                
+                if (input.type === 'tel' && value && !/^\d{10}$/.test(value)) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    input.classList.remove('is-valid');
+                }
+                
+                if (input.type === 'url' && value && !/^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-]*)*\/?$/.test(value)) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    input.classList.remove('is-valid');
+                }
+
+                if (input.type === 'date' && value && input.max && value > input.max) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    input.classList.remove('is-valid');
+                }
+
+                if (input.id === 'director_count' && value && (parseInt(value) < 1 || parseInt(value) > 10)) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    input.classList.remove('is-valid');
+                }
+
+                if (input.type === 'file' && input.accept === '.pdf' && value) {
+                    const file = input.files[0];
+                    if (!file.name.toLowerCase().endsWith('.pdf')) {
+                        isValid = false;
+                        input.classList.add('is-invalid');
+                        input.classList.remove('is-valid');
+                    }
+                }
+            }
+        });
+
+        // Additional validation for Step 3 (Project Milestone)
+        if (stepIndex === 2) {
+            const totalEstimated = parseFloat(document.getElementById('total_estimated_cost').value) || 0;
+            const totalIVP = parseFloat(document.getElementById('total_ivp_contribution').value) || 0;
+            const totalApplicant = parseFloat(document.getElementById('total_applicant_contribution').value) || 0;
+
+            if (Math.abs(totalEstimated - (totalIVP + totalApplicant)) > 0.01) {
+                isValid = false;
+                document.getElementById('total_estimated_cost').classList.add('is-invalid');
+                alert('Total estimated cost must equal the sum of IVP and applicant contributions.');
+            } else {
+                document.getElementById('total_estimated_cost').classList.remove('is-invalid');
+                document.getElementById('total_estimated_cost').classList.add('is-valid');
+            }
+        }
+
+        return isValid;
+    }
+
+    // Form Navigation
+    document.querySelectorAll('.next-step').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (validateStep(currentStep)) {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            } else {
+                // Show error for required fields
+                const firstInvalidField = steps[currentStep].querySelector('.is-invalid');
+                if (firstInvalidField) {
+                    firstInvalidField.focus();
+                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.prev-step').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    // Form Submission
+    document.querySelector('.submit-form').addEventListener('click', function() {
+        if (!validateStep(currentStep)) {
+            const firstInvalidField = steps[currentStep].querySelector('.is-invalid');
+            if (firstInvalidField) {
+                firstInvalidField.focus();
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+        }
+
+        const formData = new FormData(document.getElementById('wizard'));
+        
+        // Get CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $.ajax({
+            url: '{% url "techforms:innovation_voucherform" %}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            beforeSend: function() {
+                // Disable submit button to prevent double submission
+                document.querySelector('.submit-form').disabled = true;
+                document.querySelector('.submit-form').textContent = 'Submitting...';
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#successModal').modal('show');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                } else {
+                    $('#errorModal').modal('show');
+                    let errorMessage = '';
+                    if (typeof response.errors === 'string') {
+                        errorMessage = response.errors;
+                    } else {
+                        try {
+                            const errors = JSON.parse(response.errors);
+                            errorMessage = Object.values(errors).flat().join(', ');
+                        } catch (e) {
+                            errorMessage = 'Validation errors occurred. Please check your input.';
+                        }
+                    }
+                    $('#errorMessage').text(errorMessage);
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#errorModal').modal('show');
+                let errorMessage = 'Server error occurred. Please try again.';
+                
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    errorMessage = xhr.responseJSON.errors;
+                } else if (xhr.status === 400) {
+                    errorMessage = 'Bad Request. Please check your form data.';
+                } else if (xhr.status === 500) {
+                    errorMessage = 'Internal Server Error. Please try again later.';
+                }
+                
+                $('#errorMessage').text(errorMessage);
+                console.error('Ajax error:', status, error, xhr.responseText);
+            },
+            complete: function() {
+                // Re-enable submit button
+                document.querySelector('.submit-form').disabled = false;
+                document.querySelector('.submit-form').textContent = 'Submit';
+            }
+        });
+    });
+
+    // District Fetching
+    document.getElementById('state').addEventListener('change', function() {
+        var stateId = this.value;
+        var districtSelect = document.getElementById('district');
+        
+        if (stateId) {
+            fetch('/get_districts/' + stateId + '/')
+                .then(response => response.json())
+                .then(data => {
+                    districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+                    data.forEach(function(district) {
+                        var option = document.createElement('option');
+                        option.value = district.id;
+                        option.text = district.name;
+                        districtSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching districts:', error);
+                    districtSelect.innerHTML = '<option value="" selected disabled>Error loading districts</option>';
+                });
+        } else {
+            districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+        }
+    });
+
+    // Automatic Total Calculation for Step 3
+    function calculateTotals() {
+        let totalEstimated = 0;
+        let totalIVP = 0;
+        let totalApplicant = 0;
+
+        document.querySelectorAll('.cost-input').forEach(input => {
+            const value = parseFloat(input.value) || 0;
+            const type = input.getAttribute('data-type');
+            
+            if (type === 'estimated') {
+                totalEstimated += value;
+            } else if (type === 'ivp') {
+                totalIVP += value;
+            } else if (type === 'applicant') {
+                totalApplicant += value;
+            }
+        });
+
+        document.getElementById('total_estimated_cost').value = totalEstimated.toFixed(2);
+        document.getElementById('total_ivp_contribution').value = totalIVP.toFixed(2);
+        document.getElementById('total_applicant_contribution').value = totalApplicant.toFixed(2);
+    }
+
+    // Add event listeners to all cost inputs
+    document.querySelectorAll('.cost-input').forEach(input => {
+        input.addEventListener('input', calculateTotals);
+        input.addEventListener('change', calculateTotals);
+    });
+
+    // Initialize
+    showStep(currentStep);
+    calculateTotals();
+
+    // Remove validation classes on input
+    document.addEventListener('input', function(e) {
+        if (e.target.matches('input, select, textarea')) {
+            e.target.classList.remove('is-invalid', 'is-valid');
+        }
+    });
+</script>
+</body>
+</html>

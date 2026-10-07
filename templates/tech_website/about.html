@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTNT Hub | About Us</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <style>
+        .navbar-light .navbar-nav .nav-link { color: rgb(0, 0, 0); padding: 13px; font-size: 17px; font-weight: 600; }
+        nav .nav-link:hover { color: rgb(255, 116, 26) !important; }
+        header { width: 100%; background: transparent; position: fixed; top: 0; left: 0; z-index: 1000; box-shadow: 0 2px 4px #0006; }
+        .navbar-brand img { max-height: 80px; transition: all 0.3s ease-in-out; }
+        .navbar-nav .dropdown:hover .dropdown-menu { display: block; margin-top: 0; opacity: 1; visibility: visible; }
+        .dropdown:hover > .dropdown-menu { display: block; opacity: 1; visibility: visible; }
+        .dropdown-menu { display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .dropdown-menu.show { display: block; opacity: 1; transform: translateY(0); }
+        .dropdown-menu :hover { color: rgb(255, 116, 26) !important; }
+        .nav-item.dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item:active { color: #fff; text-decoration: none; background-color: transparent !important; }
+        @media (min-width: 1200px) and (max-width: 1400px) {
+            .navbar-light .navbar-nav .nav-link { padding: 13px; font-size: 16px; }
+        }
+        .highlight-link {
+            display: flex;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            border-width: 2px;
+            border-style: solid;
+            border-color: rgb(243, 112, 33);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 0 auto;
+            transition: 0.3s ease-in-out;
+            justify-content: center;
+        }
+        .highlight-link:hover {
+            background-color: #ffede2;
+    border-color: #f37021;}
+        .missvision-card h5 {font-weight: 700;    font-size: 22px;    color: #004aad;}
+        .br-25 {border-radius: 25px;}
+    </style>
+</head>
+<body>
+    <section class="header-section">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-1">
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                        <img src="{% static 'assets/images/govt-logo.svg' %}" alt="Govt Logo" class="img-fluid mainlogo-2">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="iTNT Logo" class="img-fluid itnt-logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about' %}">About TNTTFC</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'programs' %}">Programs</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown">
+                                    Technology Portfolio
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'technology' %}">Technology Available</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'technology_transfer' %}">Technology Transfer</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Services
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'ipmanagement' %}">IP Management</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-0" href="{% url 'contactus' %}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </section>
+
+    <section class="banner-section about-bgimg" style="background-image: url('../../static/assets/images/aboutimg.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 col-12 order-2 order-lg-1">
+                    <div class="ban-content d-flex align-items-center justify-content-center">
+                        <h1 data-aos="fade-right"><span data-aos="fade-up">About Us</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission-vison pt-80">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-6">
+                    <p class="text-center highlight-link shadow"><b> TNTTFC functions as a department under <a href="https://itnthub.tn.gov.in/"  target="_blank" style="color:#ff6702;">iTNT Hub </a></b></p>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12 order-1 order-lg-1">
+                    <div class="fs-2 fw-bold custom-underline text-start"  data-aos="fade-right" data-aos-delay="400">
+                        <h4 class="position-relative d-inline-block mb-2">About iTNT Hub</h4>
+                        <div class="underline "></div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 text-justify px-4 border-benefits-itnt py-4 order-3 order-lg-2" data-aos="fade-up" data-aos-delay="400">
+                    <p class="text-justify" data-aos="zoom-in" data-aos-delay="400">
+                        Tamil Nadu Technology Hub (iTNT), based out of Chennai in India’s most industrialized State, acts as the core - connecting the ecosystem of startups and key stakeholders in the Emerging and Deep Tech space. Established and funded by the Government of India (MeitY) and Government of Tamil Nadu and Industry partners, we are building India’s first DeepTech Innovation Network connected to the world.
+                    </p>
+                    <p class="text-justify" data-aos="zoom-in" data-aos-delay="900">
+                        Functioning as a Section 8 Company, under the Information Technology and Digital Services Department, Government of Tamil Nadu, the Hub closely engages with Entrepreneurs, Innovators, Researchers, Academia, Incubators, Investors, Mentors, Industries, Global Alliances and Governments to nurture a conducive Research & Development & Innovation ecosystem to drive the world of innovation.
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center mt-4 mb-1">
+                        <a href="https://itnthub.tn.gov.in/" class="btn orange-btn btn-effect-13" target="_blank">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 mt-4 col-md-12 order-2 order-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div>
+                        <img src="{% static 'assets/images/about-itnt.jpg' %}" alt="Placeholder Image" class="img-fluid border-img" style="border-radius: 10px;">
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <section class="mission-vison ptb-80 spotlight-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mt-4 col-md-12" data-aos="fade-up" data-aos-delay="400">
+                    <div>
+                        <img src="{% static 'assets/images/innovation-soptlight.png' %}" alt="Placeholder Image" class="img-fluid border-img" style="border-radius: 10px;">
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 text-justify px-4 border-benefits-itnt py-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="fs-2 fw-bold custom-underline text-start mb-4"  data-aos="fade-right" data-aos-delay="400">
+                        <h4 class="position-relative d-inline-block mb-2">About TNTTFC</h4>
+                        <div class="underline "></div>
+                    </div>
+                    <p class="text-justify" data-aos="zoom-in" data-aos-delay="400">
+                        To ignite a culture of innovation-to-impact by transforming breakthrough ideas into market-ready solutions, empowering researchers, startups, and industries to co-create the future. <span style="color:#f37021;font-weight:600;">&nbsp; Tamil Nadu Technology Transfer Facilitation Centre (TNTTFC)</span> aims to be the catalyst that bridges the gap between research and real-world application, strengthening IP ecosystems, fostering deep collaborations, and positioning Tamil Nadu as a global epicenter for Deep and Emerging Tech commercialization.
+                    </p>
+                    <p class="text-justify" data-aos="zoom-in" data-aos-delay="400">The Hon’ble Minister for Information Technology & Digital Services (IT&DS) Dr. Palanivel Thiaga Rajan on 17th July 2025 inaugurated the Tamil Nadu Technology Transfer Facilitation Centre (TNTTFC) for DeepTech Innovations Inaugurated at Tamil Nadu Technology (iTNT) Hub at the Anna University Campus.</p> 
+                    <!-- <div class="d-flex justify-content-between align-items-center mt-4 mb-1">
+                        <a href="https://itnthub.tn.gov.in/" class="btn orange-btn btn-effect-13" target="_blank">Learn More</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="visionmission">
+        <div class="container ">
+            <!-- <p class="text-center highlight-link shadow">The Hon’ble Minister for Information Technology & Digital Services (IT&DS) Dr. Palanivel Thiaga Rajan on 17th July 2025 inaugurated the Tamil Nadu Technology Transfer Facilitation Centre (TNTTFC) for DeepTech Innovations Inaugurated at Tamil Nadu Technology (iTNT) Hub at the Anna University Campus.</p>  -->
+            <div class="row pt-3 align-items-center">
+                <div class="col-md-12">
+                </div>
+                <div class="col-lg-7 col-md-12 col-12">
+                <!-- Vision Card -->
+                    <div class="missvision-card shadow p-4 mb-4" data-aos="fade-down">
+                        <div class="row align-items-center">
+                        <div class="col-12 col-md-3  mb-3 text-center">
+                            <img src="{% static 'assets/images/vision-1.png' %}" alt="Vision Icon" class="img-fluid mb-2" style="max-width:60px;" data-aos="zoom-in" data-aos-delay="600">
+                            <h5 class="fw-bold ">Our Vision</h5>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p class="mb-0">
+                                    To transform Tamil Nadu into a global leader in Deep and Emerging Tech innovation and commercialization by establishing a collaborative and scalable technology transfer ecosystem.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Mission Card -->
+                    <div class="missvision-card shadow p-4 mb-4" data-aos="fade-left" data-aos-delay="900">
+                        <div class="row align-items-center">
+                    <div class="col-12 col-md-3  mb-3 text-center">
+                        <img src="{% static 'assets/images/mission-1.png' %}" alt="Mission Icon" class="img-fluid mb-2" style="max-width:60px;" data-aos="zoom-in" data-aos-delay="1000">
+                        <h5 class="fw-bold ">Our Mission</h5>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <p class="mb-0">
+                                    To nurture a thriving environment where Ideas evolve into global technological breakthroughs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 col-12 mb-4 justify-content-center" data-aos="zoom-in" data-aos-delay="600">
+                    <video src="{% static 'assets/images/video-7.mp4' %}" autoplay loop muted style="width:100%;border-radius: 20px;border-bottom: 2px solid #ffff;"></video>
+                    <!-- <div class="vimi-img">
+                        <img src="assets/images/vision-mission.png" alt="" class="img-fluid br-10">
+                        <div class="vimi-text">
+                            <h6>Intellectual Property Rights</h6>
+                        </div>
+                    </div> -->
+                    
+                </div>
+            <!-- <h2 class="hyperlink text-center"><a href="#">TNTTFC FUNCTIONS UNDER iTNT HUB</a></h2> -->
+            </div>
+        </div>
+    </section>
+
+    <section class=" titleh4 ptb-80 spotlight-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mt-4 col-md-12  order-1 order-lg-1" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="{% static 'assets/images/spc-logo.jpg' %}" alt="through beacon" title="through-beacon" class="img-fluid rounded-3">
+                </div>
+                <div class="col-md-12">
+                    <div class="fs-2 fw-bold mb-3 custom-underline text-start"  data-aos="fade-up" data-aos-delay="400">
+                        <h4 class="position-relative d-inline-block mb-2">Supported by Tamil Nadu State Planning Commision</h4>
+                        <div class="underline "></div>
+                    </div>
+                </div>
+                <div class="col-lg-7 mt-4 col-md-12 text-justify pe-lg-5 order-2 order-lg-2" data-aos="fade-up" data-aos-delay="400">
+                    <p>The Tamil Nadu State Planning Commission aids in formulating, implementing and evaluating policies related to development, economic growth, social welfare and innovation in Tamil Nadu. It engages in the review, evaluation, and monitoring of various welfare schemes and programmes of the Government, to identify bottlenecks and challenges in the last-mile connectivity of these programs and to ensure effective public service delivery to grassroots levels.</p>
+                    <p>The Planning Commission’s broad focus areas include the preparation of plans, strategy, and goal-setting, along with monitoring, evaluation, and policy advocacy. Also, creating policy coherence and ensuring the effective implementation of our special programmes, which include State Balanced Growth Fund (SBGF), Tamil Nadu Innovations Initiative (TANII) and Tamil Nadu State Land Use Research Board (TNSLURB).</p>
+                    <p>TNTTFC is supported & funded by the State Planning Commission under the Tamil Nadu Innovation Initiatives (TANII).</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="about-jigsaw ptb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                </div>
+                <div class="col-lg-7 mt-3 col-md-12 text-justify px-4 border-benefits-jigsaw pb-4 order-lg-1 order-2" data-aos="fade-up" data-aos-delay="400">
+                    <div class="fs-2 fw-bold mb-3 custom-underline text-start mb-4" data-aos="fade-right" data-aos-delay="400">
+                        <h4 class="position-relative d-inline-block mb-2">iTNT Hub’s JIGSAW Portal</h4>
+                        <div class="underline"></div>
+                    </div>
+                    <p class="text-justify" data-aos="zoom-in" data-aos-delay="900">
+                    JIGSAW is a pioneering digital innovation platform created by iTNT Hub to accelerate collaboration between academia, industry, startups, and investors across Tamil Nadu. Launched by the state’s leadership in early 2024, JIGSAW serves as a central gateway for synergistic partnerships that drive research, development, technology transfer, and solution commercialization in Deep and Emerging Technologies.
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center mt-4 mb-1">
+                    <a href="https://itnthub.tn.gov.in/JIGSAW.html" class="btn orange-btn btn-effect-13" target="_blank">Learn More</a>   
+                    </div>
+                </div>
+                <div class="col-lg-5  mt-4 col-md-12 order-lg-2 order-1" data-aos="fade-up" data-aos-delay="400">
+                    <div>
+                    <img src="{% static 'assets/images/about-2.jpg' %}" alt="Placeholder Image" class="img-fluid border-img br-10">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="footer-logo">
+                        <img src="{% static 'assets/images/iTNT-logotm.png' %}" alt="" class="img-fluid">
+                        <h5>TNTTFC </h5>
+                        <h5>Tamil Nadu Technology (iTNT) Hub, </h5>
+                    </div>
+                    <div class="footer-content">
+                        <p>3rd Floor, Sir C.V. Raman Science Block, Anna University Campus, Kotturpuram, Chennai, Tamil Nadu - 600025 <br> Phone: <a href="tel:7305980220">7305980220</a> <br> Daniel Prabhakaran G: <a href="mailto:daniel@tnthub.org">daniel@tnthub.org</a></p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://x.com/itntHub" class="twitter" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/people/iTNT-Hub/61562141153619/" class="facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/itnthub/posts/?feedView=all" class="linkedin" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@itnthub" class="youtube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-2"></div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'programs' %}">Programs</a></li>
+                            <li><a href="{% url 'technology' %}">Technologies</a></li>
+                            <!-- <li><a href="{% url 'services' %}">Services</a></li> -->
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="{% url 'ipmanagement' %}">IP Management</a></li>
+                            <li><a href="{% url 'spinoff_support' %}">Spinoff Support</a></li>
+                            <li><a href="{% url 'seedgrant' %}">Seed Grant</a></li>
+                            <li><a href="{% url 'trl_assessment' %}">TRL Assessment</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-12">
+                    <div class="footer-content">
+                        <h4>Help Center</h4>
+                        <ul>
+                            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                            <!-- <li><a href="#">Knowledge</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Support</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <section class="footer-bottom">
+        <p class="copyright mb-0">© 2025. All rights reserved.</p>
+    </section>
+
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/all.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    <script src="{% static 'assets/js/aos.js' %}"></script>
+
+    <script>
+        AOS.init({
+            duration: 1200,
+        });
+    </script>
+</body>
+</html>
